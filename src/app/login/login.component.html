@@ -1,0 +1,54 @@
+<div class="view">
+    <div class="container">
+        <header>
+            <h3><span class="glyphicon glyphicon-lock"></span> Login</h3>
+        </header>
+        <br />
+        <form (ngSubmit)="onSubmit()" #loginForm="ngForm" class="validateForm">
+            <div class="login">
+                <div class="row">
+                    <div class="col-md-2">
+                        Email:
+                    </div>
+                    <div class="col-md-10">
+                        <input type="email" class="form-control" 
+                          required [(ngModel)]="userLogin.email" ngControl="email" #email="ngForm" />
+                        <span class="errorMessage" [hidden]="email.valid || email.pristine">
+                            Email is required
+                        </span>
+                    </div>
+                </div>
+                <br />
+                <div class="row">
+                    <div class="col-md-2">
+                        Password:
+                    </div>
+                    <div class="col-md-10">
+                        <input type="password" class="form-control" 
+                          required [(ngModel)]="userLogin.password" ngControl="password" #password="ngForm" />
+                        <span class="errorMessage" [hidden]="password.valid || password.pristine">                            Password is required
+                        </span>
+                    </div>
+                </div>
+                <br />
+                <div class="row">
+                    <div class="col-md-12">
+                        <button type="submit" class="btn btn-primary"
+                               [disabled]="loginForm.invalid || loginForm.pristine">
+                            Login
+                        </button>
+                    </div>
+                </div>
+                <br />
+                <div class="statusRow">
+                    <br />
+                    <div class="label label-important" [hidden]="!errorMessage">
+                        <span class="glyphicon glyphicon-thumbs-down icon-white"></span>
+                        &nbsp;&nbsp;Error: {{ errorMessage }}
+                    </div>
+                </div>
+            </div>
+        </form>
+    </div>
+</div>
+

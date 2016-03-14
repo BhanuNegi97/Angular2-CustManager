@@ -1,0 +1,44 @@
+<div class="orders view">
+    <div class="container">
+        <header>
+            <h3><span class="glyphicon glyphicon-folder-open"></span>&nbsp;&nbsp;All Customer Orders</h3>
+        </header>
+        <br />
+        <div class="container">
+            <div class="row">
+                <div class="col-sm-12">
+                    <filter-textbox
+                    label="Filter by Product Name:"
+                    (changed)="filterChanged($event)"></filter-textbox>
+                    <br />
+                </div>
+            </div>
+        </div>
+        <div class="container">
+            <div class="row">
+                <div class="col-md-12 repeat-animation" *ngFor="#customer of filteredCustomers">
+                    <div>
+                        <h4>{{ customer.firstName + ' ' + customer.lastName }}</h4>
+                    </div>
+                    
+                    <orders-table *ngIf="customer.orders" [customer]="customer"></orders-table>
+                    
+                </div>
+            </div>
+            <div class="row show-hide-animation" [hidden]="filteredCustomers.length !== 0">
+                <div class="col-md-12">
+                    <h4>No customers found</h4>
+                </div>
+            </div>
+            <div class="row show-hide-animation" [hidden]="filteredCustomers.length === 0" style="margin-left:0px;">
+                <div class="col-md-12">
+                    Pagination
+                    <br />
+                    <h5>Showing {{ filteredCount }} of {{ totalRecords}} total customers</h5>
+                </div>
+            </div>
+        </div>
+    </div>
+    <br /><br /><br />
+</div>
+

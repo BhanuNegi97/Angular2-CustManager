@@ -1,0 +1,28 @@
+<div class="container">
+    <div class="row card-container">
+        <div class="col-sm-6 col-md-4 col-lg-3" *ngFor="#customer of customers">
+            <div class="card">
+                <!--<button class="btn close card-close" title="Delete Customer" (click)="deleteCustomer(customer.id)">&times;</button>-->
+                <div class="card-header">
+                    <a [routerLink]="['Customer',{id:customer.id}]" class="white">
+                        {{customer.firstName | capitalize }} {{ customer.lastName | capitalize }} 
+                        <i class="icon-edit icon-white editIcon"></i></a>
+                </div>
+                <div class="card-body">
+                    <div class="clearfix">
+                        <div class="pull-left card-body-left">
+                            <a href="#" class="white">
+                                <img src="images/{{customer.gender | lowercase}}.png" class="card-image" />
+                            </a>
+                        </div>
+                        <div class="pull-left card-body-right">
+                            <div class="card-body-content">{{customer.city | trim }}, {{customer.state.name}}</div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+        <div [hidden]="customers.length">
+            No Records Found
+        </div>
+    </div>

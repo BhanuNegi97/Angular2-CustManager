@@ -1,0 +1,25 @@
+<header class="navbar navbar-inner navbar-fixed-top">
+    <nav class="container">
+        <div class="navbar-header">
+            <button type="button" class="navbar-toggle" 
+                (click)="isCollapsed = !isCollapsed">
+                <span class="sr-only">Toggle navigation</span>
+                <span class="icon-bar"></span>
+                <span class="icon-bar"></span>
+                <span class="icon-bar"></span>
+            </button>
+            <a class="navbar-brand" [routerLink]="['Customers']">
+                <img src="images/people.png" alt="logo">
+                <span class="app-title">Customer Manager</span>
+            </a>
+        </div>
+        <div class="nav-container" data-collapse="isCollapsed">
+            <ul class="nav navbar-nav nav-pills navBarPadding">
+                <li [class.active]="highlight('/customers')"><a [routerLink]="['Customers']">Customers</a></li>
+                <li [class.active]="highlight('/orders')"><a [routerLink]="['Orders']">Orders</a></li>
+                <li [class.active]="highlight('/about')"><a [routerLink]="['About']">About</a></li>
+                <li [class.active]="highlight('/login')" (click)="loginOrOut()"><a>{{ loginLogoutText }}</a></li>
+            </ul>
+        </div>
+    </nav>
+</header>
