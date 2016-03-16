@@ -2,6 +2,7 @@ import { Injectable, Output, EventEmitter } from 'angular2/core';
 import { Http, ConnectionBackend, RequestOptions, 
          Request, RequestOptionsArgs, Response, RequestMethod } from 'angular2/http';
 import { Observable } from 'rxjs/Observable';
+import 'rxjs/add/operator/delay';
 
 @Injectable()
 export class HttpInterceptor extends Http {
@@ -41,7 +42,9 @@ export class HttpInterceptor extends Http {
         this.requestStart(url, method);
         const args = (method === RequestMethod.Post || method === RequestMethod.Put) ? 
                     [url, body, options] : [url, options];
+                    
         return super[RequestMethod[method].toLowerCase()](...args)
+            .delay(1000)
             .map((res: Response) => {
                 this.requestComplete(url, method);
                 return res;

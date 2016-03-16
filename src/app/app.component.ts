@@ -7,11 +7,12 @@ import { OrdersComponent } from './orders/orders.component';
 import { AboutComponent } from './about/about.component';
 import { NavbarComponent } from './navbar/navbar.component';
 import { LoginComponent } from './login/login.component';
+import { OverlayComponent } from './overlay/overlay.component';
 
 @Component({ 
   selector: 'app-component',
   templateUrl: 'app/app.component.html',
-  directives: [ROUTER_DIRECTIVES, NavbarComponent],
+  directives: [ROUTER_DIRECTIVES, NavbarComponent, OverlayComponent],
 })
 @RouteConfig([
   { path: '/customers', as: 'Customers', component: CustomersComponent, useAsDefault: true },
