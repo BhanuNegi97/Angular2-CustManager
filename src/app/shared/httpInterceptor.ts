@@ -41,7 +41,7 @@ export class HttpInterceptor extends Http {
         this.requestStart(url, method);
         const args = (method === RequestMethod.Post || method === RequestMethod.Put) ? 
                     [url, body, options] : [url, options];
-        return super[RequestMethod[method].toLowerCase()].apply(this, args)
+        return super[RequestMethod[method].toLowerCase()](...args)
             .map((res: Response) => {
                 this.requestComplete(url, method);
                 return res;
