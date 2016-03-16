@@ -1,16 +1,28 @@
 import { bootstrap } from 'angular2/platform/browser';
-import { bind, enableProdMode } from 'angular2/core';
+import { bind, enableProdMode, provide, } from 'angular2/core';
 import { FORM_PROVIDERS } from 'angular2/common';
 import { ROUTER_PROVIDERS, LocationStrategy, HashLocationStrategy } from 'angular2/router';
-import { HTTP_PROVIDERS } from 'angular2/http';
+import { HTTP_PROVIDERS, Http, XHRBackend, RequestOptions, ConnectionBackend } from 'angular2/http';
 import { AppComponent } from './app.component';
+import { HttpInterceptor } from './shared/httpInterceptor';
+
+//Used to associate calls to Http with custom HttpInterceptor class
+export const CUSTOM_HTTP_PROVIDERS = [
+    HTTP_PROVIDERS,
+    provide(Http,
+        {
+            useFactory: (xhrBackend: XHRBackend, requestOptions: RequestOptions) => {
+                return new HttpInterceptor(xhrBackend, requestOptions)
+            },
+            deps: [XHRBackend, RequestOptions]
+        })];
 
 //enableProdMode(); //Uncomment for production
 
 bootstrap(AppComponent, [
     ROUTER_PROVIDERS,
     FORM_PROVIDERS,
-    HTTP_PROVIDERS,
+    CUSTOM_HTTP_PROVIDERS,
     bind(LocationStrategy).toClass(HashLocationStrategy)
 ]).then(
     success => console.log('AppComponent bootstrapped!'),

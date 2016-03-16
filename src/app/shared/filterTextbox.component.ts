@@ -20,8 +20,7 @@ export class FilterTextboxComponent {
     
     @Input() label: string = 'Filter';
     
-    @Output()
-    changed: EventEmitter<string> = new EventEmitter();
+    @Output() changed: EventEmitter<string> = new EventEmitter();
 
     filterChanged(event: any) {
         event.preventDefault();

@@ -87,7 +87,7 @@ export class DataService {
     };
     
     handleError(error: any) {
-        console.error(error);
+        console.error('Error: ' + error);
         return Observable.throw(error.json().error || 'Server error');
     }
 
