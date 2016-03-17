@@ -5,6 +5,8 @@ import { HttpInterceptor } from '../shared/httpInterceptor';
 @Component({ 
   selector: 'overlay',
   templateUrl: 'app/overlay/overlay.component.html',
+  //Going with Flexbox. No...won't work in older browsers but
+  //works fine in browsers I actually care about.
   styles: [`
     .overlay-container { 
       display: flex; 
