@@ -9,7 +9,6 @@ import { FilterTextboxComponent } from '../shared/filterTextbox.component';
 
 @Component({ 
   selector: 'orders',
-  providers: [DataService],
   templateUrl: 'app/orders/orders.component.html',
   directives: [CORE_DIRECTIVES, RouterLink, OrdersTableComponent, FilterTextboxComponent]
 })

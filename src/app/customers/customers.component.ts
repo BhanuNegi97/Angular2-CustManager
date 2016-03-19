@@ -10,7 +10,7 @@ import { CustomersGridComponent } from './customersGrid.component';
 
 @Component({ 
   selector: 'customers', 
-  providers: [DataService, DataFilter],
+  providers: [DataFilter],
   templateUrl: 'app/customers/customers.component.html',
   directives: [FilterTextboxComponent, CustomersCardComponent, CustomersGridComponent]
 })

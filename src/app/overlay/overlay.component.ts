@@ -4,9 +4,15 @@ import { HttpInterceptor } from '../shared/httpInterceptor';
 
 @Component({ 
   selector: 'overlay',
-  templateUrl: 'app/overlay/overlay.component.html',
-  //Going with Flexbox. No...won't work in older browsers but
-  //works fine in browsers I actually care about.
+  template: `
+    <!-- Using Flexbox for centering loader/indicator box. Won't work in 
+         older browsers of course but I just don't care :-) -->
+    <div [style]="overlayStyle" class="overlay-container">
+        <div id="overlay-content" class="overlay-content">
+          <ng-content></ng-content>
+        </div>
+    </div>
+  `,
   styles: [`
     .overlay-container { 
       display: flex; 

@@ -6,8 +6,7 @@ import { AuthService } from '../shared/services/auth.service';
 @Component({ 
   selector: 'navbar',
   templateUrl: 'app/navbar/navbar.component.html',
-  directives: [CORE_DIRECTIVES, RouterLink],
-  providers: [ AuthService ]
+  directives: [CORE_DIRECTIVES, RouterLink]
 })
 export class NavbarComponent implements OnInit {
     

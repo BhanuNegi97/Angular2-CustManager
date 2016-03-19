@@ -3,7 +3,7 @@ import { Http, Response } from 'angular2/http';
 import { IPagedResults, ICustomer } from '../interfaces.ts';
 
 //Grab everything with import 'rxjs/Rx';
-import {Observable} from 'rxjs/Observable';
+import { Observable } from 'rxjs/Observable';
 import 'rxjs/add/operator/map'; 
 import 'rxjs/add/operator/catch';
 
@@ -27,16 +27,24 @@ export class DataService {
     
     getCustomer(id: number) : Observable<ICustomer> {
         return this.http.get(this.serviceBase + 'customerById/' + id)
-                    .map((res: Response) => {
-                        let customer = res.json();
-                        this.extendCustomers([customer]);
-                        return customer;
-                    })
-                    .catch(this.handleError);
+                   .map((res: Response) => {
+                       let customer = res.json();
+                       this.extendCustomers([customer]);
+                       return customer;
+                   })
+                   .catch(this.handleError);
     }
 
-    getOrders(pageIndex: number, pageSize: number){
+    getOrders(pageIndex: number, pageSize: number) {
         return this.getPagedResource('customersSummary', pageIndex, pageSize);               
+    }
+    
+    getStates() {
+      return this.http.get(this.serviceBase + 'states')
+                 .map((res: Response) => {
+                     return res.json();
+                 })
+                 .catch(this.handleError);
     }
 
     getPagedResource(baseResource: string, pageIndex: number, pageSize: number) : Observable<IPagedResults> {

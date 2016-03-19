@@ -6,8 +6,7 @@ import { AuthService } from '../shared/services/auth.service';
 @Component({ 
   selector: 'login',
   templateUrl: 'app/login/login.component.html',
-  directives: [CORE_DIRECTIVES, FORM_DIRECTIVES],
-  providers: [ AuthService ]
+  directives: [CORE_DIRECTIVES, FORM_DIRECTIVES]
 })
 export class LoginComponent implements OnInit {
     
