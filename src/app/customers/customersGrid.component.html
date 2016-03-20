@@ -40,7 +40,7 @@
                             </a>
                         </td>
                         <td>
-                            <a *ngIf="user.isAuthenticated" [routerLink]="['CustomersEdit',{id:customer.id}]" class="btn btn-default btn-sm">Edit</a>
+                            <a *ngIf="user.isAuthenticated" [routerLink]="['CustomerEdit',{id:customer.id}]" class="btn btn-default btn-sm">Edit</a>
                         </td>
                     </tr>
                     <tr *ngIf="!customers.length">

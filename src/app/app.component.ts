@@ -18,7 +18,7 @@ import { OverlayComponent } from './overlay/overlay.component';
 @RouteConfig([
   { path: '/customers', as: 'Customers', component: CustomersComponent, useAsDefault: true },
   { path: '/customers/:id', as: 'Customer', component: CustomerComponent },
-  { path: '/customersEdit/:id', as: 'CustomersEdit', component: CustomerEditComponent },
+  { path: '/customersEdit/:id', as: 'CustomerEdit', component: CustomerEditComponent },
   { path: '/orders', as: 'Orders', component: OrdersComponent },
   { path: '/about', as: 'About', component: AboutComponent },
   { path: '/login', as: 'Login', component: LoginComponent }

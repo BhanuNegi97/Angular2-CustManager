@@ -18,6 +18,8 @@ export class NavbarComponent implements OnInit {
                 private location: Location) {}
     
     ngOnInit() {
+        this.setLoginLogoutText(this.authService.user.isAuthenticated);
+      
         //Subscribe to events
         this.authService.loginRequired.subscribe(() => {
             this.redirectToLogin();

@@ -2,12 +2,11 @@
     <div class="row card-container">
         <div class="col-sm-6 col-md-4 col-lg-3" *ngFor="#customer of customers">
             <div class="card">
-                <!--<button class="btn close card-close" title="Delete Customer" (click)="deleteCustomer(customer.id)">&times;</button>-->
                 <div class="card-header">
-                    <a [routerLink]="['Customer',{id:customer.id}]" class="white">
+                    <a [routerLink]="['CustomerEdit',{id:customer.id}]" class="white">
                         {{customer.firstName | capitalize }} {{ customer.lastName | capitalize }} 
                     </a>
-                    <a *ngIf="user.isAuthenticated" [routerLink]="['CustomersEdit',{id:customer.id}]" class="pull-right btn btn-default btn-xs">Edit</a>
+                    <a *ngIf="user.isAuthenticated" [routerLink]="['CustomerEdit',{id:customer.id}]" class="pull-right btn btn-default btn-xs">Edit</a>
                  </div>
                 <div class="card-body">
                     <div class="clearfix">
