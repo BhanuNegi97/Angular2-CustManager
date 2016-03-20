@@ -65,8 +65,9 @@ th {
 .card {
     background-color:#fff;
     border: 1px solid #d4d4d4;
-    height:100px;
+    /*height:100px;*/
     margin-bottom: 20px;
+    padding-bottom: 5px;
     position: relative;
 }
 
@@ -99,7 +100,7 @@ th {
 }
 
 .card-body-content {
-    width: 100px;
+    width: 100%;
 }
 
 .card-image {
@@ -269,7 +270,7 @@ filter-textbox {
     width:250px;
 }
 
-tbody td {
+.ordersTable tbody td {
     width: 20%;
 }
 

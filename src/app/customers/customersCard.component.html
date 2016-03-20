@@ -18,6 +18,14 @@
                         </div>
                         <div class="pull-left card-body-right">
                             <div class="card-body-content">{{customer.city | trim }}, {{customer.state.name}}</div>
+                            <a [routerLink]="['Customer',{id:customer.id}]" class="card-body-content">
+                              {{ customer.orderCount }} 
+                              <span [ngPlural]="customer.orderCount">
+                                <template ngPluralCase="=0">Orders</template>
+                                <template ngPluralCase="=1">Order</template>
+                                <template ngPluralCase="many">Orders</template>
+                              </span>
+                            </a>
                         </div>
                     </div>
                 </div>

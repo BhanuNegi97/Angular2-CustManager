@@ -1,5 +1,5 @@
-import { Component, Input, OnInit } from 'angular2/core';
-import { CORE_DIRECTIVES } from 'angular2/common';
+import { Component, Input, OnInit, provide } from 'angular2/core';
+import { CORE_DIRECTIVES, NgLocalization } from 'angular2/common';
 import { RouterLink } from 'angular2/router';
 
 import { CapitalizePipe } from '../shared/pipes/capitalize.pipe';
@@ -25,3 +25,4 @@ export class CustomersCardComponent implements OnInit {
   }
 
 }
+

@@ -11,6 +11,7 @@
                         <!-- Or you can do this directly rather than using sort-by directive -->
                         <th (click)="sort('city')">City</th>
                         <th sort-by="state.name" (sorted)="sort($event)">State</th>
+                        <th>Orders</th>
                         <th>&nbsp;</th>
                     </tr>
                 </thead>
@@ -28,6 +29,16 @@
                         <td>{{ customer.address }}</td>
                         <td>{{ customer.city | trim }}</td>
                         <td>{{ customer.state.name }}</td>
+                        <td>
+                            <a [routerLink]="['Customer',{id:customer.id}]">
+                              {{ customer.orderCount }} 
+                              <span [ngPlural]="customer.orderCount">
+                                <template ngPluralCase="=0">Orders</template>
+                                <template ngPluralCase="=1">Order</template>
+                                <template ngPluralCase="many">Orders</template>
+                              </span>
+                            </a>
+                        </td>
                         <td>
                             <a *ngIf="user.isAuthenticated" [routerLink]="['CustomersEdit',{id:customer.id}]" class="btn btn-default btn-sm">Edit</a>
                         </td>
