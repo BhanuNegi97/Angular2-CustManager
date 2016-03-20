@@ -5,7 +5,7 @@ import { RouterLink, RouteParams } from 'angular2/router';
 import { DataService } from '../shared/services/data.service';
 import { IPagedResults, ICustomer, IOrder } from '../shared/interfaces';
 import { OrdersTableComponent } from './ordersTable.component';
-import { FilterTextboxComponent } from '../shared/filterTextbox.component';
+import { FilterTextboxComponent } from '../shared/components/filterTextbox.component';
 
 @Component({ 
   selector: 'orders',

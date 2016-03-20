@@ -5,7 +5,7 @@ import { RouterLink } from 'angular2/router';
 import { SortByDirective } from '../shared/directives/sortby.directive';
 import { CapitalizePipe } from '../shared/pipes/capitalize.pipe';
 import { TrimPipe } from '../shared/pipes/trim.pipe';
-import { Sorter } from '../shared/sorter';
+import { Sorter } from '../shared/utils/sorter';
 import { AuthService } from '../shared/services/auth.service';
 import { IUserSecurity } from '../shared/interfaces';
 

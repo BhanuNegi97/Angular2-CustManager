@@ -1,6 +1,6 @@
 import { Component, Input} from 'angular2/core';
 import { CORE_DIRECTIVES } from 'angular2/common';
-import { Sorter } from '../shared/sorter';
+import { Sorter } from '../shared/utils/sorter';
 import { ICustomer } from '../shared/interfaces';
 
 @Component({ 

@@ -5,9 +5,9 @@ import { ROUTER_PROVIDERS, LocationStrategy, HashLocationStrategy } from 'angula
 import { HTTP_PROVIDERS, Http, XHRBackend, RequestOptions, ConnectionBackend } from 'angular2/http';
 
 import { AppComponent } from './app.component';
-import { HttpInterceptor } from './shared/httpInterceptor';
+import { HttpInterceptor } from './shared/utils/httpInterceptor';
 import { SERVICE_PROVIDERS } from './shared/services/service.providers';
-import { CustomLocalization } from './shared/customLocalization';
+import { CustomLocalization } from './shared/utils/customLocalization';
 
 //Used to associate calls to Http with custom HttpInterceptor class
 export const CUSTOM_HTTP_PROVIDERS = [

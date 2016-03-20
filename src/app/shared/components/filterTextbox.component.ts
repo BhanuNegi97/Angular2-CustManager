@@ -5,7 +5,7 @@ import { FORM_DIRECTIVES } from 'angular2/common';
   selector: 'filter-textbox',
   template: `
     <form>
-         {{ label }}
+         {{ label }} 
          <input type="text" 
                 [(ngModel)]="model.filter" 
                 (keyup)="filterChanged($event)"  />

@@ -1,9 +1,9 @@
 import { Component, OnInit } from 'angular2/core';
 
-import { FilterTextboxComponent } from '../shared/filterTextbox.component';
+import { FilterTextboxComponent } from '../shared/components/filterTextbox.component';
 import { IPagedResults } from '../shared/interfaces';
 import { DataService } from '../shared/services/data.service';
-import { DataFilter } from '../shared/dataFilter';
+import { DataFilter } from '../shared/utils/dataFilter';
 import { CustomersCardComponent } from './customersCard.component';
 import { CustomersGridComponent } from './customersGrid.component';
 
