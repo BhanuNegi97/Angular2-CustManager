@@ -25,12 +25,12 @@
                     
                 </div>
             </div>
-            <div class="row show-hide-animation" [hidden]="filteredCustomers.length !== 0">
+            <div class="row show-hide-animation" *ngIf="filteredCustomers.length === 0">
                 <div class="col-md-12">
                     <h4>No customers found</h4>
                 </div>
             </div>
-            <div class="row show-hide-animation" [hidden]="filteredCustomers.length === 0" style="margin-left:0px;">
+            <div class="row show-hide-animation" *ngIf="filteredCustomers.length !== 0" style="margin-left:0px;">
                 <div class="col-md-12">
                     Pagination
                     <br />

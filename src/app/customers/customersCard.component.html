@@ -6,8 +6,9 @@
                 <div class="card-header">
                     <a [routerLink]="['Customer',{id:customer.id}]" class="white">
                         {{customer.firstName | capitalize }} {{ customer.lastName | capitalize }} 
-                        <i class="icon-edit icon-white editIcon"></i></a>
-                </div>
+                    </a>
+                    <a *ngIf="user.isAuthenticated" [routerLink]="['CustomersEdit',{id:customer.id}]" class="pull-right btn btn-default btn-xs">Edit</a>
+                 </div>
                 <div class="card-body">
                     <div class="clearfix">
                         <div class="pull-left card-body-left">
@@ -22,7 +23,7 @@
                 </div>
             </div>
         </div>
-        <div [hidden]="customers.length">
+        <div *ngIf="!customers.length">
             No Records Found
         </div>
     </div>

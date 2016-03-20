@@ -14,7 +14,7 @@ export class AuthService {
     serviceBase: string = '/api/dataservice/';
     
     user: IUserSecurity = {
-        isAuthenticated: false,
+        isAuthenticated: true,
         roles: null
     };
     

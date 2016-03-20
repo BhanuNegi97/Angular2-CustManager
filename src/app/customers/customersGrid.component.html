@@ -11,19 +11,28 @@
                         <!-- Or you can do this directly rather than using sort-by directive -->
                         <th (click)="sort('city')">City</th>
                         <th sort-by="state.name" (sorted)="sort($event)">State</th>
+                        <th>&nbsp;</th>
                     </tr>
                 </thead>
                 <tbody>
                     <tr *ngFor="#customer of customers">
-                        <td><img src="images/{{ customer.gender | lowercase }}.png" 
-                                    class="card-image" alt="Customer Image" /></td>
-                        <td><a [routerLink]="['Customer',{id:customer.id}]">{{ customer.firstName | capitalize }}</a></td>
+                        <td>
+                            <img src="images/{{ customer.gender | lowercase }}.png" 
+                                 class="card-image" alt="Customer Image" />
+                        </td>
+                        <td>
+                          <a *ngIf="user.isAuthenticated" [routerLink]="['Customer',{id:customer.id}]">{{ customer.firstName | capitalize }}</a>
+                          <span *ngIf="!user.isAuthenticated">{{ customer.firstName | capitalize }}</span>
+                        </td>
                         <td>{{ customer.lastName | capitalize }}</td>
                         <td>{{ customer.address }}</td>
                         <td>{{ customer.city | trim }}</td>
                         <td>{{ customer.state.name }}</td>
+                        <td>
+                            <a *ngIf="user.isAuthenticated" [routerLink]="['CustomersEdit',{id:customer.id}]" class="btn btn-default btn-sm">Edit</a>
+                        </td>
                     </tr>
-                    <tr [hidden]="customers.length">
+                    <tr *ngIf="!customers.length">
                         <td>&nbsp;</td>
                         <td colspan="6">No Records Found</td>
                     </tr>

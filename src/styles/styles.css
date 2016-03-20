@@ -86,6 +86,7 @@ th {
 
 .card-body {
     padding-left: 5px;
+    padding-top: 10px;
 }
 
 .card-body-left {
@@ -102,7 +103,8 @@ th {
 }
 
 .card-image {
-    height:50px;width:50px;margin-top:10px;
+    height:50px;
+    width:50px;
 }
 
 .ordersTable tr:first-child th, .customersTable tr:first-child th {
@@ -257,6 +259,10 @@ filter-textbox {
   border-left: 5px solid #57A83F;
 }
 
+.customerEdit input[type='text'], 
+.customerEdit input[type='number'],
+.customerEdit input[type='email'],
+.customerEdit select,
 .login input[type='text'], 
 .login input[type='email'],
 .login input[type='password'] {

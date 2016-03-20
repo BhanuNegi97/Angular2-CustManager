@@ -6,6 +6,8 @@ import { SortByDirective } from '../shared/directives/sortby.directive';
 import { CapitalizePipe } from '../shared/pipes/capitalize.pipe';
 import { TrimPipe } from '../shared/pipes/trim.pipe';
 import { Sorter } from '../shared/sorter';
+import { AuthService } from '../shared/services/auth.service';
+import { IUserSecurity } from '../shared/interfaces';
 
 @Component({ 
   selector: 'customers-grid', 
@@ -17,11 +19,12 @@ import { Sorter } from '../shared/sorter';
 export class CustomersGridComponent implements OnInit {
 
   @Input() customers: any[] = [];
+  user: IUserSecurity;
 
-  constructor(private sorter: Sorter) { }
-  
+  constructor(private authService: AuthService, private sorter: Sorter) { }
+   
   ngOnInit() {
-
+      this.user = this.authService.user;
   }
 
   sort(prop: string) {

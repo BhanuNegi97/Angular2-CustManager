@@ -1,13 +1,17 @@
 <div class="view">
     <div class="container">
         <header>
-            <h3><span class="glyphicon glyphicon-edit"></span> {{vm.title}} Customer</h3>
+            <h3><span class="glyphicon glyphicon-edit"></span> {{title}} Customer</h3>
         </header>
-        <form name="editForm" novalidate>
+        <form *ngIf="customer" (ngSubmit)="onSubmit()" #editForm="ngForm" class="editForm">
             <div class="customerEdit">
                 <div class="row">
                     <div class="col-md-12">
-                        <h4>{{ vm.customer.firstName + ' ' + vm.customer.lastName }} <span data-ng-hide="vm.customer.id == 0">(<a style="font-size:12pt" href="#/customerorders/{{vm.customer.id}}">View Orders</a>)</span></h4>
+                        <h4>{{ customer.firstName}} {{ customer.lastName }} 
+                          <span [hidden]="customer.id == 0">
+                            (<a style="font-size:12pt" [routerLink]="['Customer',{id:customer.id}]">View Orders</a>)
+                          </span>
+                        </h4>
                         <br />
                     </div>
                 </div>
@@ -16,8 +20,12 @@
                         First Name:
                     </div>
                     <div class="col-md-10">
-                        <input type="text" name="firstName" class="form-control" data-ng-model="vm.customer.firstName" required />
-                        <span class="errorMessage" ng-show="editForm.firstName.$touched && editForm.firstName.$invalid">
+                        <input type="text" class="form-control" 
+                               [(ngModel)]="customer.firstName" 
+                               ngControl="firstName" 
+                               #firstName="ngForm"
+                               required />
+                        <span class="errorMessage" [hidden]="firstName.untouched || firstName.valid">
                             First name is required
                         </span>
                     </div>
@@ -28,8 +36,12 @@
                         Last Name:
                     </div>
                     <div class="col-md-10">
-                        <input type="text" name="lastName" class="form-control" data-ng-model="vm.customer.lastName" required />
-                        <span class="errorMessage" ng-show="editForm.lastName.$touched && editForm.lastName.$invalid">
+                        <input type="text" class="form-control" 
+                               [(ngModel)]="customer.lastName" 
+                               ngControl="lastName"
+                               #lastName="ngForm"
+                               required />
+                        <span class="errorMessage" [hidden]="lastName.untouched || lastName.valid">
                             Last name is required
                         </span>
                     </div>
@@ -42,18 +54,24 @@
                     <div class="col-md-10">
                         <div class="radio">
                             <label class="radio">
-                                <input type="radio" name="gender" value="Male"
-                                       data-ng-checked="vm.customer.gender == 'Male'"
-                                       data-ng-model="vm.customer.gender" />
-                                Male
+                                <input type="radio" 
+                                       value="Male"
+                                       name="gender"
+                                       (click)="customer.gender = male.value"
+                                       [checked]="customer.gender === male.value"
+                                       #male />
+                                {{ male.value }}                    
                             </label>
                         </div>
                         <div class="radio">
                             <label class="radio">
-                                <input type="radio" name="gender" value="Female"
-                                       data-ng-checked="vm.customer.gender == 'Female'"
-                                       data-ng-model="vm.customer.gender" />
-                                Female
+                                <input type="radio" 
+                                       value="Female"
+                                       name="gender"
+                                       (click)="customer.gender = female.value"
+                                       [checked]="customer.gender === female.value"
+                                       #female />
+                                {{ female.value }}
                                 <br />
                             </label>
                         </div>
@@ -65,20 +83,15 @@
                         Email:
                     </div>
                     <div class="col-md-10">
-                        <!-- allowInvalid added below so that the model isn't wiped
-                        out (the default behavior) if email is determined to be invalid due to being a duplicate-->
-                        <input type="text" name="email"
+                        <input type="text"
                                class="form-control"
-                               data-ng-model="vm.customer.email"
-                               data-ng-model-options="{ updateOn: 'blur', allowInvalid: true }"
-                               data-wc-unique
-                               data-wc-unique-key="{{vm.customer.id}}"
-                               data-wc-unique-property="email"
-                               data-ng-minlength="3"
+                               [(ngModel)]="customer.email"
+                               ngControl="email" 
+                               #email="ngForm"
                                required />
                         <!-- Show error if touched and unique is in error -->
-                        <span class="errorMessage" ng-show="editForm.email.$touched && editForm.email.$error.unique">
-                            Email already in use
+                        <span class="errorMessage" [hidden]="email.untouched || email.valid">
+                            Email is required
                         </span>
                     </div>
                 </div>
@@ -88,8 +101,12 @@
                         Address:
                     </div>
                     <div class="col-md-10">
-                        <input type="text" name="address" class="form-control" data-ng-model="vm.customer.address" required />
-                        <span class="errorMessage" ng-show="editForm.address.$touched && editForm.address.$invalid">
+                        <input type="text" class="form-control" 
+                               [(ngModel)]="customer.address" 
+                               ngControl="address" 
+                               #address="ngForm"
+                               required />
+                        <span class="errorMessage" [hidden]="address.untouched || address.valid">
                             Address is required
                         </span>
                     </div>
@@ -100,8 +117,12 @@
                         City:
                     </div>
                     <div class="col-md-10">
-                        <input type="text" name="city" class="form-control" data-ng-model="vm.customer.city" required />
-                        <span class="errorMessage" ng-show="editForm.city.$touched && editForm.city.$invalid">
+                        <input type="text" class="form-control" 
+                               [(ngModel)]="customer.city" 
+                               ngControl="city" 
+                               #city="ngForm"
+                               required />
+                        <span class="errorMessage" [hidden]="city.untouched || city.valid">
                             City is required
                         </span>
                     </div>
@@ -112,13 +133,16 @@
                         State:
                     </div>
                     <div class="col-md-10">
-                        <select name="state" required class="form-control"
-                                data-ng-model="vm.customer.stateId"
-                                data-ng-options="state.id as state.name for state in vm.states">
-                            <option value=""></option>
+                        <select class="form-control" 
+                                [(ngModel)]="customer.stateId"
+                                ngControl="state" 
+                                #state="ngForm"
+                                required>
+                          <option value=""></option>
+                          <option *ngFor="#state of states" [value]="state.id" [selected]="state.id === customer.id">{{state.name}}</option>
                         </select>
-                        <span class="errorMessage" ng-show="editForm.state.$touched && editForm.state.$invalid">
-                            2 character state is required
+                        <span class="errorMessage" [hidden]="state.untouched || state.valid">
+                            State is required
                         </span>
                     </div>
                 </div>
@@ -128,8 +152,13 @@
                         Zip:
                     </div>
                     <div class="col-md-10">
-                        <input type="number" name="zip" class="form-control" data-ng-model="vm.customer.zip" required />
-                        <span class="errorMessage" ng-show="editForm.zip.$touched && editForm.zip.$invalid">
+                        <input type="number" 
+                               class="form-control" 
+                               [(ngModel)]="customer.zip" 
+                               ngControl="zip" 
+                               #zip="ngForm"
+                               required />
+                        <span class="errorMessage" [hidden]="zip.untouched || zip.valid">
                             Zip is required
                         </span>
                     </div>
@@ -137,25 +166,27 @@
                 <br />
                 <div class="row">
                     <div class="col-md-12">
-                        <button type="submit" class="btn btn-primary" data-ng-click="vm.saveCustomer()"
-                                ng-disabled="editForm.$invalid || !editForm.$dirty">
-                            {{vm.buttonText}}
+                        <button type="submit" 
+                                class="btn btn-primary"
+                                [disabled]="editForm.invalid || editForm.pristine">
+                            {{buttonText}}
                         </button>
                         &nbsp;&nbsp;
-                        <button class="btn btn-danger" data-ng-if="vm.customer.id > 0" data-ng-click="vm.deleteCustomer()">Delete</button>
+                        <button class="btn btn-danger" *ngIf="customer.id > 0" (click)="deleteCustomer()">Delete</button>
                     </div>
                 </div>
                 <br />
                 <div class="statusRow">
                     <br />
-                    <div class="label label-success" data-ng-show="vm.updateStatus">
+                    <!-- label will override display so using ngIf to show/hide rather than [hidden] -->
+                    <div class="label label-success" *ngIf="updateStatus">
                         <span class="glyphicon glyphicon-thumbs-up icon-white"></span>&nbsp;&nbsp;Customer updated!
                     </div>
                 </div>
                 <div class="statusRow">
                     <br />
-                    <div class="label label-important" data-ng-show="vm.errorMessage">
-                        <span class="glyphicon glyphicon-thumbs-down icon-white"></span>&nbsp;&nbsp;Error: {{ vm.errorMessage }}
+                    <div class="label label-important" *ngIf="errorMessage">
+                        <span class="glyphicon glyphicon-thumbs-down icon-white"></span>&nbsp;&nbsp;Error: {{ errorMessage }}
                     </div>
                 </div>
             </div>
