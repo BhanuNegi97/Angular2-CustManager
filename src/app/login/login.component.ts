@@ -1,12 +1,10 @@
 import { Component, OnInit } from 'angular2/core';
-import { CORE_DIRECTIVES, FORM_DIRECTIVES } from 'angular2/common';
 import { IUserLogin } from '../shared/interfaces';
 import { AuthService } from '../shared/services/auth.service';
 
 @Component({ 
   selector: 'login',
-  templateUrl: 'app/login/login.component.html',
-  directives: [CORE_DIRECTIVES, FORM_DIRECTIVES]
+  templateUrl: 'app/login/login.component.html'
 })
 export class LoginComponent implements OnInit {
     

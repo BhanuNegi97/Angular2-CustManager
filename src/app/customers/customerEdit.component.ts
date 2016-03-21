@@ -1,5 +1,4 @@
 import { Component, OnInit } from 'angular2/core';
-import { CORE_DIRECTIVES, FORM_DIRECTIVES } from 'angular2/common';
 import { Http, Response } from 'angular2/http';
 import { RouterLink, RouteParams } from 'angular2/router';
 
@@ -9,7 +8,7 @@ import { ICustomer, IState } from '../shared/interfaces';
 @Component({
   selector: 'customer-edit',
   templateUrl: './app/customers/customerEdit.component.html',
-  directives: [CORE_DIRECTIVES, FORM_DIRECTIVES, RouterLink],
+  directives: [RouterLink],
   providers: [ DataService ]
 })
 

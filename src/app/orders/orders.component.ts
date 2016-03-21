@@ -1,5 +1,4 @@
 import { Component } from 'angular2/core';
-import { CORE_DIRECTIVES } from 'angular2/common';
 import { RouterLink, RouteParams } from 'angular2/router';
 
 import { DataService } from '../shared/services/data.service';
@@ -10,7 +9,7 @@ import { FilterTextboxComponent } from '../shared/components/filterTextbox.compo
 @Component({ 
   selector: 'orders',
   templateUrl: 'app/orders/orders.component.html',
-  directives: [CORE_DIRECTIVES, RouterLink, OrdersTableComponent, FilterTextboxComponent]
+  directives: [RouterLink, OrdersTableComponent, FilterTextboxComponent]
 })
 export class OrdersComponent {
 	

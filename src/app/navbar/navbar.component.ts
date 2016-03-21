@@ -1,12 +1,11 @@
 import { Component, OnInit } from 'angular2/core';
-import { CORE_DIRECTIVES } from 'angular2/common';
 import { RouterLink, Router, Location } from 'angular2/router';
 import { AuthService } from '../shared/services/auth.service';
 
 @Component({ 
   selector: 'navbar',
   templateUrl: 'app/navbar/navbar.component.html',
-  directives: [CORE_DIRECTIVES, RouterLink]
+  directives: [RouterLink]
 })
 export class NavbarComponent implements OnInit {
     

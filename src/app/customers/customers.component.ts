@@ -3,14 +3,14 @@ import { Component, OnInit } from 'angular2/core';
 import { FilterTextboxComponent } from '../shared/components/filterTextbox.component';
 import { IPagedResults } from '../shared/interfaces';
 import { DataService } from '../shared/services/data.service';
-import { DataFilter } from '../shared/utils/dataFilter';
+import { DataFilterService } from '../shared/services/dataFilter.service';
 import { CustomersCardComponent } from './customersCard.component';
 import { CustomersGridComponent } from './customersGrid.component';
 
 
 @Component({ 
   selector: 'customers', 
-  providers: [DataFilter],
+  providers: [DataFilterService],
   templateUrl: 'app/customers/customers.component.html',
   directives: [FilterTextboxComponent, CustomersCardComponent, CustomersGridComponent]
 })
@@ -23,7 +23,7 @@ export class CustomersComponent implements OnInit {
   filteredCustomers: any[] = [];
 
   constructor(private dataService: DataService, 
-              private dataFilter: DataFilter) { }
+              private dataFilterService: DataFilterService) { }
   
   ngOnInit() {
     this.title = 'Customers';
@@ -41,7 +41,7 @@ export class CustomersComponent implements OnInit {
   }
 
   filterChanged(filterData: string) {
-      this.filteredCustomers = this.dataFilter.filter(this.customers, 
+      this.filteredCustomers = this.dataFilterService.filter(this.customers, 
                                  ['firstName', 'lastName', 'city', 'state.name'], 
                                  filterData);
   }

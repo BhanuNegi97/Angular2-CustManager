@@ -14,11 +14,8 @@ System.config({
         '/src': {
             defaultExtension: 'js'
         },
-        '/node_modules/angular2': {
-            defaultExtension: 'js'
-        },
-        '/node_modules/rxjs': {
-            defaultExtension: 'js'
+        '/node_modules': {
+            // defaultExtension: 'js'
         }
     },
     map: {

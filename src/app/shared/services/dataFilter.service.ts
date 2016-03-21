@@ -1,6 +1,8 @@
-import { PropertyResolver } from './propertyResolver';
+import { Injectable } from 'angular2/core';
+import { PropertyResolver } from '../utils/propertyResolver';
 
-export class DataFilter extends PropertyResolver {
+@Injectable()
+export class DataFilterService extends PropertyResolver {
     
     constructor() {
         super();

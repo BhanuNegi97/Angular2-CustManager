@@ -1,5 +1,4 @@
 import { Component, OnInit } from 'angular2/core';
-import { CORE_DIRECTIVES } from 'angular2/common';
 import { RouteParams, RouterLink } from 'angular2/router';
 
 import { DataService } from '../shared/services/data.service';
@@ -11,7 +10,7 @@ import { IUserSecurity } from '../shared/interfaces';
 @Component({ 
   selector: 'customer-orders', 
   templateUrl: 'app/customers/customer.component.html',
-  directives: [CORE_DIRECTIVES, RouterLink, OrdersTableComponent]
+  directives: [RouterLink, OrdersTableComponent]
 })
 export class CustomerComponent implements OnInit {
 
