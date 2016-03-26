@@ -14,7 +14,6 @@ export class DataFilterService extends PropertyResolver {
             const filtered = datasource.filter(item => {
                 let match = false;
                 for (const prop of filterProperties) {
-                    //console.log(item[prop] + ' ' + item[prop].toUpperCase().indexOf(data));
                     let propVal: any = '';
                     
                     //Account for nested properties like 'state.name'

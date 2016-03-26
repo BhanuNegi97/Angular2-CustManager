@@ -10,7 +10,8 @@
                     <div>
                         <h4>
                             Orders for {{ customer.firstName }} {{ customer.lastName }} &nbsp;
-                            <a *ngIf="user.isAuthenticated" [routerLink]="['CustomerEdit',{id:customer.id}]" class="btn btn-default btn-xs">Edit</a>
+                                                        <i *ngIf="user.isAuthenticated" [routerLink]="['CustomerEdit',{id:customer.id}]" 
+                                class="glyphicon glyphicon-edit edit-icon edit-icon-large"></i>
                         </h4>
                         {{customer.address}}
                         <br />

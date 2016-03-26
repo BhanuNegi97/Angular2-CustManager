@@ -8,7 +8,7 @@ import { OrdersComponent } from './orders/orders.component';
 import { AboutComponent } from './about/about.component';
 import { NavbarComponent } from './navbar/navbar.component';
 import { LoginComponent } from './login/login.component';
-import { OverlayComponent } from './overlay/overlay.component';
+import { OverlayComponent } from './shared/components/overlay.component';
 
 @Component({ 
   selector: 'app-component',

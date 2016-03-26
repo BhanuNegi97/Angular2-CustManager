@@ -1,8 +1,10 @@
-import { Injectable, Output, EventEmitter } from 'angular2/core';
+import { Injectable, Output, EventEmitter, Inject } from 'angular2/core';
 import { Http, ConnectionBackend, RequestOptions, 
          Request, RequestOptionsArgs, Response, RequestMethod } from 'angular2/http';
 import { Observable } from 'rxjs/Observable';
 import 'rxjs/add/operator/delay';
+
+import { ILogService } from '../interfaces';
 
 @Injectable()
 export class HttpInterceptor extends Http {
@@ -10,7 +12,7 @@ export class HttpInterceptor extends Http {
     @Output() requestStarted: EventEmitter<string> = new EventEmitter();
     @Output() requestCompleted: EventEmitter<string> = new EventEmitter();
     
-    constructor(_backend: ConnectionBackend, _defaultOptions: RequestOptions) {
+    constructor(_backend: ConnectionBackend, _defaultOptions: RequestOptions, private _logService: ILogService) {
         super(_backend, _defaultOptions);
     }
     
@@ -44,7 +46,7 @@ export class HttpInterceptor extends Http {
                     [url, body, options] : [url, options];
                     
         return super[RequestMethod[method].toLowerCase()](...args)
-            .delay(1000)
+            .delay(700)
             .map((res: Response) => {
                 this.requestComplete(url, method);
                 return res;
@@ -52,12 +54,12 @@ export class HttpInterceptor extends Http {
     }
     
     requestStart(url: string, method: RequestMethod) {
-        console.log(RequestMethod[method] + ' request started: ' + url);
+        this._logService.log(RequestMethod[method] + ' request started: ' + url);
         this.requestStarted.emit(url);
     }
     
     requestComplete(url: string, method: RequestMethod) {
-        console.log(RequestMethod[method] + ' request completed: ' + url);
+        this._logService.log(RequestMethod[method] + ' request completed: ' + url);
         this.requestCompleted.emit(url);
     }
     

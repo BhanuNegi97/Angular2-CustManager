@@ -1,6 +1,6 @@
 import { Component, Input, OnInit } from 'angular2/core';
 import { Http } from 'angular2/http';
-import { HttpInterceptor } from '../shared/utils/httpInterceptor';
+import { HttpInterceptor } from '../utils/httpInterceptor';
 
 @Component({ 
   selector: 'overlay',

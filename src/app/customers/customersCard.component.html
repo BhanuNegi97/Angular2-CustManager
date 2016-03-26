@@ -6,7 +6,8 @@
                     <a [routerLink]="['CustomerEdit',{id:customer.id}]" class="white">
                         {{customer.firstName | capitalize }} {{ customer.lastName | capitalize }} 
                     </a>
-                    <a *ngIf="user.isAuthenticated" [routerLink]="['CustomerEdit',{id:customer.id}]" class="pull-right btn btn-default btn-xs">Edit</a>
+                    <i *ngIf="user.isAuthenticated" title="Edit" [routerLink]="['CustomerEdit',{id:customer.id}]" 
+                       class="pull-right glyphicon glyphicon-edit edit-icon"></i>
                  </div>
                 <div class="card-body">
                     <div class="clearfix">

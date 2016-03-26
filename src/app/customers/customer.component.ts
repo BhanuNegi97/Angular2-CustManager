@@ -1,5 +1,5 @@
 import { Component, OnInit } from 'angular2/core';
-import { RouteParams, RouterLink } from 'angular2/router';
+import { RouteParams, RouterLink, ComponentInstruction, OnActivate } from 'angular2/router';
 
 import { DataService } from '../shared/services/data.service';
 import { OrdersTableComponent } from '../orders/ordersTable.component';
@@ -12,7 +12,7 @@ import { IUserSecurity } from '../shared/interfaces';
   templateUrl: 'app/customers/customer.component.html',
   directives: [RouterLink, OrdersTableComponent]
 })
-export class CustomerComponent implements OnInit {
+export class CustomerComponent implements OnInit, OnActivate {
 
   customer: ICustomer;
   user: IUserSecurity;
@@ -29,6 +29,10 @@ export class CustomerComponent implements OnInit {
           .subscribe((customer: ICustomer) => {
               this.customer = customer;
           });        
+  }
+  
+  routerOnActivate(next: ComponentInstruction, prev: ComponentInstruction) {
+    
   }
 
 }

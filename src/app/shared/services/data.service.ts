@@ -1,4 +1,4 @@
-import { Injectable } from 'angular2/core';
+import { Injectable, Inject } from 'angular2/core';
 import { Http, Response } from 'angular2/http';
 import { IPagedResults, ICustomer } from '../interfaces.ts';
 
@@ -7,13 +7,15 @@ import { Observable } from 'rxjs/Observable';
 import 'rxjs/add/operator/map'; 
 import 'rxjs/add/operator/catch';
 
+import { LogService } from '../services/log.service';
+
 
 @Injectable()
 export class DataService {
   
     serviceBase: string = '/api/dataservice/';
 
-    constructor(private http: Http) {
+    constructor(private _http: Http, private _logService: LogService) {
 
     }
     
@@ -26,7 +28,7 @@ export class DataService {
     }
     
     getCustomer(id: number) : Observable<ICustomer> {
-        return this.http.get(this.serviceBase + 'customerById/' + id)
+        return this._http.get(this.serviceBase + 'customerById/' + id)
                    .map((res: Response) => {
                        let customer = res.json();
                        this.extendCustomers([customer]);
@@ -40,7 +42,7 @@ export class DataService {
     }
     
     getStates() {
-      return this.http.get(this.serviceBase + 'states')
+      return this._http.get(this.serviceBase + 'states')
                  .map((res: Response) => {
                      return res.json();
                  })
@@ -49,13 +51,13 @@ export class DataService {
 
     getPagedResource(baseResource: string, pageIndex: number, pageSize: number) : Observable<IPagedResults> {
         let resource = baseResource;
-        resource += (arguments.length == 3) ? this.buildPagingUri(pageIndex, pageSize) : '';
-        return this.http.get(this.serviceBase + resource)
+        resource += (pageIndex && pageSize) ? this.buildPagingUri(pageIndex, pageSize) : '';
+        return this._http.get(this.serviceBase + resource)
                 .map((response: Response) => {
                     let custs = response.json();
                     this.extendCustomers(custs);
                     return {
-                        totalRecords: parseInt(response.headers['X-InlineCount']),
+                        totalRecords: parseInt(response.headers.get('X-InlineCount'), 10),
                         results: custs
                     };
                 })
@@ -95,7 +97,7 @@ export class DataService {
     };
     
     handleError(error: any) {
-        console.error('Error: ' + error);
+        this._logService.log('Error: ' + error);
         return Observable.throw(error.json().error || 'Server error');
     }
 
