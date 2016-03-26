@@ -9,12 +9,11 @@ import 'rxjs/add/operator/catch';
 
 import { LogService } from '../services/log.service';
 
-
 @Injectable()
 export class DataService {
   
-    serviceBase: string = '/api/dataservice/';
-
+    _apiEndpoint: string = '/api/dataservice/';
+  
     constructor(private _http: Http, private _logService: LogService) {
 
     }
@@ -28,7 +27,7 @@ export class DataService {
     }
     
     getCustomer(id: number) : Observable<ICustomer> {
-        return this._http.get(this.serviceBase + 'customerById/' + id)
+        return this._http.get(this._apiEndpoint + 'customerById/' + id)
                    .map((res: Response) => {
                        let customer = res.json();
                        this.extendCustomers([customer]);
@@ -42,7 +41,7 @@ export class DataService {
     }
     
     getStates() {
-      return this._http.get(this.serviceBase + 'states')
+      return this._http.get(this._apiEndpoint + 'states')
                  .map((res: Response) => {
                      return res.json();
                  })
@@ -51,8 +50,8 @@ export class DataService {
 
     getPagedResource(baseResource: string, pageIndex: number, pageSize: number) : Observable<IPagedResults> {
         let resource = baseResource;
-        resource += (pageIndex && pageSize) ? this.buildPagingUri(pageIndex, pageSize) : '';
-        return this._http.get(this.serviceBase + resource)
+        resource += (arguments.length === 3) ? this.buildPagingUri(pageIndex, pageSize) : '';
+        return this._http.get(this._apiEndpoint + resource)
                 .map((response: Response) => {
                     let custs = response.json();
                     this.extendCustomers(custs);

@@ -5,15 +5,15 @@ import { Component, OnInit, Input, Output, EventEmitter } from 'angular2/core';
   template: `
     <nav [hidden]="!isVisible">
       <ul class="pagination">
-        <li [class.disabled]="!previousEnabled" (click)="previousNext(-1)">
+        <li [class.disabled]="!previousEnabled" (click)="previousNext(-1, $event)">
           <a href="#" aria-label="Previous">
             <span aria-hidden="true">&laquo;</span>
           </a>
         </li>
-        <li *ngFor="#page of pages" (click)="changePage(page)" [class.active]="currentPage === page">
+        <li *ngFor="#page of pages" (click)="changePage(page, $event)" [class.active]="currentPage === page">
           <a href="#">{{ page }}</a>
         </li>
-        <li [class.disabled]="!nextEnabled" (click)="previousNext(1)">
+        <li [class.disabled]="!nextEnabled" (click)="previousNext(1, $event)">
           <a href="#" aria-label="Next">
             <span aria-hidden="true">&raquo;</span>
           </a>
@@ -76,7 +76,7 @@ export class PaginationComponent implements OnInit {
     this.isVisible = false;
   }
   
-  previousNext(direction: number) {
+  previousNext(direction: number, event?: MouseEvent) {
     let page: number = this.currentPage;
     if (direction == -1) {
         if (page > 1) page--;
@@ -86,7 +86,10 @@ export class PaginationComponent implements OnInit {
     this.changePage(page);
   }
   
-  changePage(page: number) {
+  changePage(page: number, event?: MouseEvent) {
+    if (event) {
+      event.preventDefault();
+    }
     if (this.currentPage === page) return;
     this.currentPage = page;
     this.previousEnabled = this.currentPage > 1;

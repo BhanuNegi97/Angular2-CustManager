@@ -10,8 +10,6 @@ import { LogService } from './services/log.service';
 import { HttpInterceptor } from './utils/httpInterceptor';
 import { CustomLocalization } from './utils/customLocalization';
 
-
-//Used to associate calls to Http with custom HttpInterceptor class
 export const APP_PROVIDERS = [
     provide(NgLocalization, { useClass: CustomLocalization}),
     provide(DataService, { useClass: DataService }),

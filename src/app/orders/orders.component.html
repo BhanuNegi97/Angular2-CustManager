@@ -32,9 +32,7 @@
             </div>
             <div class="row show-hide-animation" *ngIf="filteredCustomers.length !== 0" style="margin-left:0px;">
                 <div class="col-md-12">
-                    Pagination
-                    <br />
-                    <h5>Showing {{ filteredCount }} of {{ totalRecords}} total customers</h5>
+                    <pagination [totalItems]="totalRecords" [pageSize]="pageSize" (pageChanged)="pageChanged($event)"></pagination>
                 </div>
             </div>
         </div>
