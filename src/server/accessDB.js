@@ -104,9 +104,9 @@ module.exports = {
         });
     },
 
-    editCustomer: function (id, req_body, state, callback) {
+    updateCustomer: function (id, req_body, state, callback) {
         console.log('*** accessDB.editCustomer');
-
+        
         var s = { 'id': state[0].id, 'abbreviation': state[0].abbreviation, 'name': state[0].name }
 
         Customer.findOne({ 'id': id }, { '_id': 1, 'firstName': 1, 'lastName': 1, 'city': 1, 'state': 1, 'stateId': 1, 'gender': 1, 'id': 1 }, function (err, customer) {

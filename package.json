@@ -6,7 +6,7 @@
     "postinstall": "npm run typings install",
     "tsc": "tsc",
     "tsc:w": "tsc --watch",
-    "start": "cd src/server && node server.js",
+    "start": "node src/server/server.js",
     "typings": "typings"
   },
   "license": "ISC",

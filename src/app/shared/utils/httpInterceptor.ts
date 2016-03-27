@@ -1,5 +1,5 @@
 import { Injectable, Output, EventEmitter, Inject } from 'angular2/core';
-import { Http, ConnectionBackend, RequestOptions, 
+import { Http, ConnectionBackend, RequestOptions, Headers,
          Request, RequestOptionsArgs, Response, RequestMethod } from 'angular2/http';
 import { Observable } from 'rxjs/Observable';
 import 'rxjs/add/operator/delay';
@@ -42,7 +42,15 @@ export class HttpInterceptor extends Http {
     
     executeRequest(method: RequestMethod, url: string, body?:string, options?:RequestOptionsArgs) {
         this.requestStart(url, method);
-        const args = (method === RequestMethod.Post || method === RequestMethod.Put) ? 
+        
+        //Add CSRF token
+        if (!options) {
+          let headers = new Headers();
+          options = new RequestOptions({ headers: headers });
+        }
+        options.headers.append('XSRF-TOKEN', this.getCookie('XSRF-TOKEN'));
+        
+        const args = (method === RequestMethod.Post || method === RequestMethod.Put || method === RequestMethod.Patch) ? 
                     [url, body, options] : [url, options];
                     
         return super[RequestMethod[method].toLowerCase()](...args)
@@ -51,6 +59,13 @@ export class HttpInterceptor extends Http {
                 this.requestComplete(url, method);
                 return res;
             });
+    }
+    
+    getCookie(name: string) {
+      let value = "; " + document.cookie;
+      let parts = value.split("; " + name + "=");
+      if (parts.length == 2) 
+        return parts.pop().split(";").shift();
     }
     
     requestStart(url: string, method: RequestMethod) {

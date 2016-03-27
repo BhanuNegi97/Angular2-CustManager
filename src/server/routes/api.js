@@ -19,8 +19,8 @@ exports.customer = function (req, res) {
     });
 };
 
-exports.addCustomer = function (req, res) {
-    console.log('*** addCustomer');
+exports.insertCustomer = function (req, res) {
+    console.log('*** insertCustomer');
     db.getState(req.body.stateId, function (err, state) {
         if (err) {
             console.log('*** getState err');
@@ -28,9 +28,10 @@ exports.addCustomer = function (req, res) {
         } else {
             db.insertCustomer(req.body, state, function (err) {
                 if (err) {
-                    console.log('*** addCustomer err');
+                    console.log('*** insertCustomer err');
                     res.json(false);
                 } else {
+                    console.log('*** insertCustomer err');
                     console.log('*** addCustomer ok');
                     res.json(req.body);
                 }
@@ -39,7 +40,7 @@ exports.addCustomer = function (req, res) {
     });
 };
 
-exports.editCustomer = function (req, res) {
+exports.updateCustomer = function (req, res) {
     console.log('*** editCustomer');
 
     db.getState(req.body.stateId, function (err, state) {
@@ -47,12 +48,12 @@ exports.editCustomer = function (req, res) {
             console.log('*** getState err');
             res.json({ 'status': false });
         } else {
-            db.editCustomer(req.params.id, req.body, state, function (err) {
+            db.updateCustomer(req.params.id, req.body, state, function (err) {
                 if (err) {
-                    console.log('*** editCustomer err' + util.inspect(err));
+                    console.log('*** updateCustomer err' + util.inspect(err));
                     res.json({ 'status': false });
                 } else {
-                    console.log('*** editCustomer ok');
+                    console.log('*** updateCustomer ok');
                     res.json({ 'status': true });
                 }
             });

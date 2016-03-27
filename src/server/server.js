@@ -14,7 +14,7 @@ app.set('views', __dirname + '/views');
 app.set('view engine', 'jade');
 
 console.log(__dirname)
-app.use(express.static('../../'));
+app.use(express.static('./'));
 
 app.use(session({ 
     secret: 'customermanager-angular2', 
@@ -52,8 +52,8 @@ app.get(baseUrl + 'Customer/:id', api.customer);
 app.get(baseUrl + 'CustomersSummary', api.customersSummary);
 app.get(baseUrl + 'CustomerById/:id', api.customer);
 
-app.post(baseUrl + 'PostCustomer', api.addCustomer);
-app.put(baseUrl + 'PutCustomer/:id', api.editCustomer);
+app.post(baseUrl + 'PostCustomer', api.insertCustomer);
+app.put(baseUrl + 'PutCustomer/:id', api.updateCustomer);
 app.delete(baseUrl + 'DeleteCustomer/:id', api.deleteCustomer);
 
 app.get(baseUrl + 'States', api.states);

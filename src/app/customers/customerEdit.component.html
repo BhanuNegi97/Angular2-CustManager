@@ -3,7 +3,7 @@
         <header>
             <h3><span class="glyphicon glyphicon-edit"></span> {{title}} Customer</h3>
         </header>
-        <form *ngIf="customer" (ngSubmit)="onSubmit()" #editForm="ngForm" class="editForm">
+        <form *ngIf="customer" #editForm="ngForm" class="editForm">
             <div class="customerEdit">
                 <div class="row">
                     <div class="col-md-12">
@@ -168,28 +168,18 @@
                     <div class="col-md-12">
                         <button type="submit" 
                                 class="btn btn-primary"
-                                [disabled]="editForm.invalid || editForm.pristine">
+                                (click)="saveCustomer()">
                             {{buttonText}}
                         </button>
                         &nbsp;&nbsp;
                         <button class="btn btn-danger" *ngIf="customer.id > 0" (click)="deleteCustomer()">Delete</button>
                     </div>
                 </div>
-                <br />
-                <div class="statusRow">
-                    <br />
-                    <!-- label will override display so using ngIf to show/hide rather than [hidden] -->
-                    <div class="label label-success" *ngIf="updateStatus">
-                        <span class="glyphicon glyphicon-thumbs-up icon-white"></span>&nbsp;&nbsp;Customer updated!
-                    </div>
-                </div>
-                <div class="statusRow">
-                    <br />
-                    <div class="label label-important" *ngIf="errorMessage">
-                        <span class="glyphicon glyphicon-thumbs-down icon-white"></span>&nbsp;&nbsp;Error: {{ errorMessage }}
-                    </div>
-                </div>
+                           
             </div>
         </form>
+        
+        <growler position="bottom-right" timeout="2500"></growler>
+        
     </div>
 </div>

@@ -256,6 +256,11 @@ footer {
   border-color: #027FF4;
 }
 
+.growler-container {
+  /*padding-top: 50px;
+  padding-bottom: 50px;*/
+}
+
 filter-textbox {
     margin-top: 5px;
 }

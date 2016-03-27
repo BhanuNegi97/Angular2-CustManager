@@ -1,5 +1,5 @@
 import { Injectable, Inject } from 'angular2/core';
-import { Http, Response } from 'angular2/http';
+import { Http, Response, Headers, RequestOptions } from 'angular2/http';
 import { IPagedResults, ICustomer } from '../interfaces.ts';
 
 //Grab everything with import 'rxjs/Rx';
@@ -66,6 +66,38 @@ export class DataService {
     buildPagingUri(pageIndex: number, pageSize: number) {
         const uri = '?$top=' + pageSize + '&$skip=' + (pageIndex * pageSize);
         return uri;
+    }
+    
+    insertCustomer(customer: ICustomer) {
+      return this._http.post(this._apiEndpoint + 'postCustomer', 
+                             JSON.stringify(customer), this.getJsonRequestOptions())
+                 .map((response: Response) => {
+                   return response.json();
+                 })
+                 .catch(this.handleError);
+      
+    }
+    
+    updateCustomer(customer: ICustomer) {
+      return this._http.put(this._apiEndpoint + 'putCustomer/' + customer.id, 
+                            JSON.stringify(customer), this.getJsonRequestOptions())
+                 .map((response: Response) => {
+                   return response.json();
+                 });
+    }
+    
+    deleteCustomer(id: number) {
+      return this._http.delete(this._apiEndpoint + 'deleteCustomer/' + id)
+                 .map((response: Response) => {
+                   return response.json();
+                 })
+                 .catch(this.handleError);
+    }
+    
+    getJsonRequestOptions() : RequestOptions {
+      let headers = new Headers({ 'content-type': 'application/json' });
+      let options = new RequestOptions({ headers: headers });
+      return options;
     }
     
     extendCustomers(customers: ICustomer[]) {

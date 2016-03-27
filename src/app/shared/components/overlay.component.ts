@@ -7,8 +7,8 @@ import { HttpInterceptor } from '../utils/httpInterceptor';
   template: `
     <!-- Using Flexbox for centering loader/indicator box. Won't work in 
          older browsers of course but I just don't care :-) -->
-    <div [style]="overlayStyle" class="overlay-container">
-        <div id="overlay-content" class="overlay-content">
+    <div *ngIf="enabled"  class="overlay-container">
+        <div class="overlay-content">
           <ng-content></ng-content>
         </div>
     </div>
@@ -40,9 +40,7 @@ import { HttpInterceptor } from '../utils/httpInterceptor';
 })
 export class OverlayComponent implements OnInit {
   
-    enabledStyle: string = 'display: flex';
-    disabledStyle: string = 'display: none';
-    overlayStyle: string = this.disabledStyle;
+    enabled: boolean;
     http: HttpInterceptor;
     queue: string[] = [];
     
@@ -61,7 +59,7 @@ export class OverlayComponent implements OnInit {
             if (this.queue.length === 1) {
                 setTimeout(() => {
                     if (this.queue.length) {
-                        this.overlayStyle = this.enabledStyle;
+                      this.enabled = true;
                     }
                 }, this.delay);
             }
@@ -76,7 +74,7 @@ export class OverlayComponent implements OnInit {
                     //Ensure we're still at 0 since another XHR call could have been triggered
                     //This helps avoid flicker
                     if (this.queue.length === 0) {
-                        this.overlayStyle = this.disabledStyle;
+                        this.enabled = false;
                     }
                 }, this.delay)
             }

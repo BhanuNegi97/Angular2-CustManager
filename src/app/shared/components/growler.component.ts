@@ -1,0 +1,161 @@
+import { Component, OnInit, Input, Output, EventEmitter } from 'angular2/core';
+
+const GROWLER_STYLES: string = `     
+    .growler {
+      position: fixed;
+      z-index: 999999;
+    }
+    
+    .growler.close-button:focus {
+      outline: 0;
+    }
+    
+    .growler.top-left {
+      top: 12px;
+      left: 12px;
+    }
+    
+    .growler.top-right {
+      top: 12px;
+      right: 12px;
+    }
+    
+    .growler.bottom-right {
+      bottom: 12px;
+      right: 12px;
+    }
+    
+    .growler.bottom-left {
+      bottom: 12px;
+      left: 12px;
+    }
+    
+    .growler.top-center {
+      top: 12px;
+      left: 50%;
+      -webkit-transform: translate(-50%, 0%);
+              transform: translate(-50%, 0%);
+    }
+    
+    .growler.bottom-center {
+      bottom: 12px;
+      left: 50%;
+      -webkit-transform: translate(-50%, 0%);
+              transform: translate(-50%, 0%);
+    }
+    
+    .growl {
+      cursor: pointer;
+      padding: 5;
+      width: 285px;
+      height: 65px; 
+      opacity: 0;
+              
+      -webkit-transition: opacity 1s;
+      -moz-transition: opacity 1s; 
+      -o-transition: opacity 1s;
+      transition: opacity 1s;        
+    }   
+    
+    .growl.active {        
+      opacity: 1;
+    } 
+`;
+
+@Component({
+  selector: 'growler',
+  template: `
+    <div [ngClass]="position" class="growler">
+      <div *ngFor="#growl of growls" [ngClass]="{active: growl.enabled}" 
+          class="growl alert {{ growl.messageType }}">
+          <span>{{ growl.message }}</span>
+      </div>
+    </div>
+  `,
+  styles: [ GROWLER_STYLES ]
+})
+
+export class GrowlerComponent implements OnInit {
+  
+  @Input() position: string = 'bottom-right'; 
+  @Input() timeout: number = 3000;
+  
+  growls: Growl[] = [];
+  growlCount: number = 0;
+  
+  constructor() { }
+
+  ngOnInit() { }
+   
+  growl(message: string, growlType: GrowlMessageType) {  
+     this.growlCount++;
+     const bootstrapAlertType = GrowlMessageType[growlType].toLowerCase();
+     const messageType = `alert-${ bootstrapAlertType }`;     
+     
+     const growl = new Growl(this.growlCount, message, messageType, this.timeout, this);
+     this.growls.push(growl);
+  }
+  
+  removeGrowl(id: number) {
+    this.growls.forEach((growl: Growl, index: number) => {
+      if (growl.id === id) {
+        this.growls.splice(index, 1);
+        this.growlCount--;
+        console.log('removed ' + id)
+      }
+    });
+  }
+}
+
+class Growl {
+  
+  enabled: boolean;
+  timeoutId: number;
+  
+  
+  constructor(public id: number, 
+              private message: string, 
+              private messageType: string, 
+              private timeout: number, 
+              private growlerContainer: GrowlerComponent) { 
+    this.show();
+  }
+  
+  show() {
+    window.setTimeout(() => {
+      this.enabled = true;
+      this.setTimeout();
+    }, 0);
+  }
+    
+  setTimeout() {
+    window.setTimeout(() => {
+      this.hide();
+    }, this.timeout);
+  }  
+  
+  hide() {
+    this.enabled = false;
+    window.setTimeout(() => {
+      this.growlerContainer.removeGrowl(this.id);
+    }, this.timeout);
+  }
+  
+}
+
+export enum GrowlPositionEnum {
+  BottomRight = 0,
+  BottomLeft = 1,
+  BottomCenter = 2,
+  TopRight = 3,
+  TopLeft = 4,
+  TopCenter = 5,
+  Center = 6
+}
+
+export enum GrowlMessageType {
+  Success,
+  Danger,
+  Warning,
+  Info
+}
