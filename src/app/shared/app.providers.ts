@@ -9,12 +9,14 @@ import { AuthService } from './services/auth.service';
 import { LogService } from './services/log.service';
 import { HttpInterceptor } from './utils/httpInterceptor';
 import { CustomLocalization } from './utils/customLocalization';
+import { HttpUtils } from './utils/httpUtils';
 
 export const APP_PROVIDERS = [
     provide(NgLocalization, { useClass: CustomLocalization}),
     provide(DataService, { useClass: DataService }),
     provide(AuthService, { useClass: AuthService }),
     provide(LogService, { useClass: LogService }),
+    provide(HttpUtils, {useClass: HttpUtils}),
     FORM_PROVIDERS,
     ROUTER_PROVIDERS,
     HTTP_PROVIDERS,

@@ -40,15 +40,10 @@
                     </div>
                 </div>
                 <br />
-                <div class="statusRow">
-                    <br />
-                    <div class="label label-important" [hidden]="!errorMessage">
-                        <span class="glyphicon glyphicon-thumbs-down icon-white"></span>
-                        &nbsp;&nbsp;Error: {{ errorMessage }}
-                    </div>
-                </div>
             </div>
         </form>
+        
+        <growler position="bottom-right" timeout="2500"></growler>
     </div>
 </div>
 

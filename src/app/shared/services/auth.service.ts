@@ -1,12 +1,13 @@
 import { Injectable, Output, EventEmitter } from 'angular2/core';
 import { Http, Response } from 'angular2/http';
-import { IUserSecurity, IUserLogin } from '../interfaces.ts';
-
 //Grab everything with import 'rxjs/Rx';
 import {Observable} from 'rxjs/Observable';
 import 'rxjs/add/operator/map'; 
 import 'rxjs/add/operator/catch';
 
+import { IUserSecurity, IUserLogin } from '../interfaces.ts';
+import { LogService } from './log.service';
+import { HttpUtils } from '../utils/httpUtils';
 
 @Injectable()
 export class AuthService {
@@ -14,7 +15,7 @@ export class AuthService {
     serviceBase: string = '/api/dataservice/';
     
     user: IUserSecurity = {
-        isAuthenticated: true,
+        isAuthenticated: false,
         roles: null
     };
     
@@ -24,12 +25,12 @@ export class AuthService {
     @Output()
     authChanged: EventEmitter<boolean> = new EventEmitter<boolean>();
     
-    constructor(private http: Http) { }
+    constructor(private _http: Http, private _httpUtils: HttpUtils, private _logService: LogService) { }
     
     login(userLogin: IUserLogin) {
         const postBody: string = JSON.stringify({ userLogin: userLogin }); 
         
-        return this.http.post(this.serviceBase + 'login', postBody)
+        return this._http.post(this.serviceBase + 'login', postBody, this._httpUtils.getJsonRequestOptions())
             .map((res: Response) => {
                 const loggedIn = res.json();
                 this.changeAuth(loggedIn);
@@ -39,7 +40,7 @@ export class AuthService {
     }
     
     logout() {
-        return this.http.post(this.serviceBase + 'logout', null)
+        return this._http.post(this.serviceBase + 'logout', null, this._httpUtils.getJsonRequestOptions())
             .map((res: Response) => {
                 const status = res.json();
                 const loggedIn = !status;
@@ -55,11 +56,11 @@ export class AuthService {
 
     changeAuth(loggedIn: boolean) {
         this.user.isAuthenticated = loggedIn;
-        this.authChanged.emit(true); //Raise authChanged event
+        this.authChanged.emit(loggedIn); //Raise authChanged event
     }
     
     handleError(error: any) {
-        console.error('Error: ' + error);
+        this._logService.log('Error: ' + error);
         return Observable.throw(error.json().error || 'Server error');
     }
 

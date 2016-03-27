@@ -1,20 +1,20 @@
 import { Injectable, Inject } from 'angular2/core';
 import { Http, Response, Headers, RequestOptions } from 'angular2/http';
-import { IPagedResults, ICustomer } from '../interfaces.ts';
-
 //Grab everything with import 'rxjs/Rx';
 import { Observable } from 'rxjs/Observable';
 import 'rxjs/add/operator/map'; 
 import 'rxjs/add/operator/catch';
 
-import { LogService } from '../services/log.service';
+import { IPagedResults, ICustomer } from '../interfaces.ts';
+import { LogService } from './log.service';
+import { HttpUtils } from '../utils/httpUtils';
 
 @Injectable()
 export class DataService {
   
     _apiEndpoint: string = '/api/dataservice/';
   
-    constructor(private _http: Http, private _logService: LogService) {
+    constructor(private _http: Http, private _httpUtils: HttpUtils, private _logService: LogService) {
 
     }
     
@@ -70,7 +70,7 @@ export class DataService {
     
     insertCustomer(customer: ICustomer) {
       return this._http.post(this._apiEndpoint + 'postCustomer', 
-                             JSON.stringify(customer), this.getJsonRequestOptions())
+                             JSON.stringify(customer), this._httpUtils.getJsonRequestOptions())
                  .map((response: Response) => {
                    return response.json();
                  })
@@ -80,26 +80,20 @@ export class DataService {
     
     updateCustomer(customer: ICustomer) {
       return this._http.put(this._apiEndpoint + 'putCustomer/' + customer.id, 
-                            JSON.stringify(customer), this.getJsonRequestOptions())
+                            JSON.stringify(customer), this._httpUtils.getJsonRequestOptions())
                  .map((response: Response) => {
                    return response.json();
                  });
     }
     
     deleteCustomer(id: number) {
-      return this._http.delete(this._apiEndpoint + 'deleteCustomer/' + id)
+      return this._http.delete(this._apiEndpoint + 'deleteCustomer/' + id, this._httpUtils.getJsonRequestOptions())
                  .map((response: Response) => {
                    return response.json();
                  })
                  .catch(this.handleError);
     }
-    
-    getJsonRequestOptions() : RequestOptions {
-      let headers = new Headers({ 'content-type': 'application/json' });
-      let options = new RequestOptions({ headers: headers });
-      return options;
-    }
-    
+       
     extendCustomers(customers: ICustomer[]) {
         const custsLen = customers.length;
         //Iterate through customers

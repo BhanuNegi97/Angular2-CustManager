@@ -80,27 +80,35 @@ export class GrowlerComponent implements OnInit {
   @Input() position: string = 'bottom-right'; 
   @Input() timeout: number = 3000;
   
-  growls: Growl[] = [];
-  growlCount: number = 0;
+  private _growls: Growl[] = [];
+  private _growlCount: number = 0;
   
   constructor() { }
 
   ngOnInit() { }
    
-  growl(message: string, growlType: GrowlMessageType) {  
-     this.growlCount++;
+  /**
+  * Displays a growl message.
+  *
+  * @param {string} message - The message to display.
+  * @param {GrowlMessageType} growlType - The type of message to display (a GrowlMessageType enumeration)
+  * @return {number} id - Returns the ID for the generated growl
+  */
+  growl(message: string, growlType: GrowlMessageType) : number {  
+     this._growlCount++;
      const bootstrapAlertType = GrowlMessageType[growlType].toLowerCase();
      const messageType = `alert-${ bootstrapAlertType }`;     
      
-     const growl = new Growl(this.growlCount, message, messageType, this.timeout, this);
-     this.growls.push(growl);
+     const growl = new Growl(this._growlCount, message, messageType, this.timeout, this);
+     this._growls.push(growl);
+     return growl.id;
   }
   
   removeGrowl(id: number) {
-    this.growls.forEach((growl: Growl, index: number) => {
+    this._growls.forEach((growl: Growl, index: number) => {
       if (growl.id === id) {
-        this.growls.splice(index, 1);
-        this.growlCount--;
+        this._growls.splice(index, 1);
+        this._growlCount--;
         console.log('removed ' + id)
       }
     });
@@ -141,16 +149,6 @@ class Growl {
     }, this.timeout);
   }
   
-}
-
-export enum GrowlPositionEnum {
-  BottomRight = 0,
-  BottomLeft = 1,
-  BottomCenter = 2,
-  TopRight = 3,
-  TopLeft = 4,
-  TopCenter = 5,
-  Center = 6
 }
 
 export enum GrowlMessageType {

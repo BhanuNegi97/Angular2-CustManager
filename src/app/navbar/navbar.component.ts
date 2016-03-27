@@ -12,29 +12,30 @@ export class NavbarComponent implements OnInit {
     loginLogoutText: string = 'Login';
     isCollapsed: boolean = false;
 	
-    constructor(private authService: AuthService, 
-                private router: Router, 
-                private location: Location) {}
+    constructor(private _authService: AuthService, 
+                private _router: Router, 
+                private _location: Location) {}
     
     ngOnInit() {
-        this.setLoginLogoutText(this.authService.user.isAuthenticated);
+        this.setLoginLogoutText(this._authService.user.isAuthenticated);
       
         //Subscribe to events
-        this.authService.loginRequired.subscribe(() => {
+        this._authService.loginRequired.subscribe(() => {
             this.redirectToLogin();
         });
         
-        this.authService.authChanged.subscribe((loggedIn: boolean) => {
+        this._authService.authChanged.subscribe((loggedIn: boolean) => {
             this.setLoginLogoutText(loggedIn);
         });
     }
     
     loginOrOut() {
-        const isAuthenticated = this.authService.user.isAuthenticated;
+        const isAuthenticated = this._authService.user.isAuthenticated;
         if (isAuthenticated) { //logout 
             this.setLoginLogoutText(isAuthenticated);
-            this.authService.logout().subscribe((loggedOut: boolean) => {
-                this.router.navigateByUrl('/customers');
+            this._authService.logout().subscribe((loggedOut: boolean) => {
+                this.setLoginLogoutText(!loggedOut);
+                this._router.navigate(['Customers']);
             });
         }
         else {
@@ -47,10 +48,10 @@ export class NavbarComponent implements OnInit {
     }
     
     redirectToLogin() {
-        this.router.navigateByUrl('/login');
+        this._router.navigate(['Login']);
     }
     
     highlight(path: string) {
-        return this.location.path() === path;
+        return this._location.path() === path;
     }
 }
