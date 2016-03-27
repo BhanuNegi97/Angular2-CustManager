@@ -1,6 +1,6 @@
 import { Component, OnInit, ViewChild } from 'angular2/core';
 import { Http, Response } from 'angular2/http';
-import { RouterLink, RouteParams, OnActivate, ComponentInstruction } from 'angular2/router';
+import { Router, RouterLink, RouteParams, OnActivate, ComponentInstruction } from 'angular2/router';
 
 import { DataService } from '../shared/services/data.service';
 import { ICustomer, IState } from '../shared/interfaces';
@@ -24,6 +24,7 @@ export class CustomerEditComponent implements OnInit {
   @ViewChild(GrowlerComponent) _growler: GrowlerComponent;
 
   constructor(private _dataService: DataService, 
+              private _router: Router,
               private _routeParams: RouteParams) { }
 
   ngOnInit() { 
@@ -45,21 +46,29 @@ export class CustomerEditComponent implements OnInit {
   
   saveCustomer() {    
     if (this.customer.id) {
-    		this._dataService.updateCustomer(this.customer)
-          .subscribe((status: boolean) => {
-            this.processResponse(status, OperationTypeEnum.Insert);
-        });
+      this._dataService.updateCustomer(this.customer)
+        .subscribe((status: boolean) => {
+          this.processResponse(status, OperationTypeEnum.Insert);
+      });
     }
     else {
-    		this._dataService.insertCustomer(this.customer)
-          .subscribe((status: boolean) => {
-            this.processResponse(status, OperationTypeEnum.Update);
-        });
+      this._dataService.insertCustomer(this.customer)
+        .subscribe((status: boolean) => {
+          this.processResponse(status, OperationTypeEnum.Update);
+      });
     }
   }
   
   deleteCustomer() {
-    this.processResponse(true, OperationTypeEnum.Delete);
+      this._dataService.deleteCustomer(this.customer.id)
+        .subscribe((status: boolean) => {
+          if (status) {
+            this._router.navigate(['Customers']);
+          }
+          else {
+            this.processResponse(status, OperationTypeEnum.Delete);
+          }
+      });
   }
   
   processResponse(status: boolean, operationType: OperationTypeEnum) {
