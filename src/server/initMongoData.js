@@ -56,29 +56,29 @@ var addresses =
 
 var citiesStates =
 [
-    "Phoenix,AZ,Arizona",
-    "Encinitas,CA,California",
-    "Seattle,WA,Washington",
-    "Chandler,AZ,Arizona",
-    "Dallas,TX,Texas",
-    "Orlando,FL,Florida",
-    "Carey,NC,North Carolina",
-    "Anaheim,CA,California",
-    "Dallas,TX,Texas",
-    "New York,NY,New York",
-    "White Plains,NY,New York",
-    "Las Vegas,NV,Nevada",
-    "Los Angeles,CA,California",
-    "Portland,OR,Oregon",
-    "Seattle,WA,Washington",
-    "Houston,TX,Texas",
-    "Chicago,IL,Illinois",
-    "Atlanta,GA,Georgia",
-    "Chandler,AZ,Arizona",
-    "Buffalo,NY,New York",
-    "Albuquerque,AZ,Arizona",
-    "Boise,ID,Idaho",
-    "Salt Lake City,UT,Utah"
+    "Phoenix,AZ,Arizona,33.299,-111.963",
+    "Encinitas,CA,California,33.037,-117.291",
+    "Seattle,WA,Washington,47.596,-122.331",
+    "Chandler,AZ,Arizona,33.299,-111.963",
+    "Dallas,TX,Texas,32.782927,-96.806191",
+    "Orlando,FL,Florida,28.384238,-81.564103",
+    "Carey,NC,North Carolina,35.727985,-78.797594",
+    "Anaheim,CA,California,33.809898,-117.918757",
+    "Dallas,TX,Texas,32.782927,-96.806191",
+    "New York,NY,New York,40.725037,-74.004903",
+    "White Plains,NY,New York,41.028726,-73.758261",
+    "Las Vegas,NV,Nevada,36.091824,-115.174247",
+    "Los Angeles,CA,California,34.042552,-118.266429",
+    "Portland,OR,Oregon,45.530994,-122.667065",
+    "Seattle,WA,Washington,47.596,-122.331",
+    "Houston,TX,Texas,29.750163,-95.362769",
+    "Chicago,IL,Illinois,41.891497,-87.609939",
+    "Atlanta,GA,Georgia,33.762297, -84.392953",
+    "Chandler,AZ,Arizona,33.299,-111.963",
+    "Buffalo,NY,New York,42.906277,-78.900022",
+    "Albuquerque,NM,New Mexico,35.191861,-106.480406",
+    "Boise,ID,Idaho,43.607373,-116.203601",
+    "Salt Lake City,UT,Utah,40.757400,-111.890985"
 ];
 
 var citiesIds = [5, 9, 44, 5, 36, 17, 16, 9, 36, 14, 14, 6, 9, 24, 44, 36, 25, 19, 5, 14, 5, 23, 38];
@@ -131,6 +131,8 @@ for (i = 0; i < l; i++) {
         , "gender": nameGenderHost[2]
         , "id": i + 1
         , "orderCount": 0
+        , "latitude": cityState[3]
+        , "longitude": cityState[4]
     };
     firstOrder = Math.floor(Math.random() * orders.length);
     lastOrder = Math.floor(Math.random() * orders.length);

@@ -36,7 +36,17 @@ System.import('app/main')
       .then(null, console.error.bind(console));
       
 Although it works, you don't need any of this for this case. Turns out I was just missing the http script in this case! So simple, yet so hard 
-to debug with the current error that Angular 2 polyfill throws. Added an issue about it here:
+to debug with the current error that Angular 2 polyfill throws.
+
+#### Using Typings to get Google maps .d.ts type definition file
+
+Can locate the proper name to use with "typings search maps". Then run "typings install google.maps --ambient --save". 
+
+#### Navigating to parent route from within child route view breaks
+
+Needed to add a / in front of the parent route to tell it to start from the root route config:
+
+[routerLink]="['/CustomerEdit',{id:customer.id}]"
 
 
 

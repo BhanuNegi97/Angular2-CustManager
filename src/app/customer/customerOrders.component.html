@@ -1,0 +1,17 @@
+<div class="row">
+    <div class="col-md-12" *ngIf="customer">
+        <div>
+            <h4>
+                {{ customer.firstName }} {{ customer.lastName }} &nbsp;
+                <i *ngIf="user.isAuthenticated" [routerLink]="['/CustomerEdit',{id:customer.id}]" 
+                    class="glyphicon glyphicon-edit edit-icon edit-icon-large" title="Edit Customer"></i>
+            </h4>
+            {{customer.address}}
+            <br />
+            {{customer.city}}, <span *ngIf="customer.state">{{customer.state.name}}</span>
+            <br /><br />
+        </div>
+        
+        <orders-table *ngIf="customer.orders" [customer]="customer"></orders-table>
+    </div>                
+</div>

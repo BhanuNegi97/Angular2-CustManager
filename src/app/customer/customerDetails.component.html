@@ -1,0 +1,26 @@
+<div *ngIf="customer">
+  <div class="row">
+    <div class="col-md-1">
+      <img src="images/{{customer.gender | lowercase}}.png" class="card-image" />
+    </div>
+    <div class="col-md-11">
+      <h4>    
+          {{ customer.firstName }} {{ customer.lastName }}&nbsp;          
+          <i *ngIf="user.isAuthenticated" [routerLink]="['/CustomerEdit',{id:customer.id}]" 
+            class="glyphicon glyphicon-edit edit-icon edit-icon-large" title="Edit Customer"></i>
+      </h4>
+      <br />
+      {{ customer.address }}
+      <br />
+      {{ customer.city }}, {{ customer.state?.name }} {{ customer.zip }}
+      <br />
+      {{ customer.email }}
+      <br /><br /><br />
+    </div>
+  </div>
+  <div class="row">
+    <div class="col-md-12">
+        <map [latitude]="customer.latitude" [longitude]="customer.longitude" [zoom]="10"></map>
+    </div>
+  </div>       
+</div>               

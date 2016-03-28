@@ -22,7 +22,7 @@
                                  class="card-image" alt="Customer Image" />
                         </td>
                         <td>
-                          <a *ngIf="user.isAuthenticated" [routerLink]="['Customer',{id:customer.id}]">{{ customer.firstName | capitalize }}</a>
+                          <a *ngIf="user.isAuthenticated" [routerLink]="['Customer', {id:customer.id}, 'CustomerDetails']">{{ customer.firstName | capitalize }}</a>
                           <span *ngIf="!user.isAuthenticated">{{ customer.firstName | capitalize }}</span>
                         </td>
                         <td>{{ customer.lastName | capitalize }}</td>

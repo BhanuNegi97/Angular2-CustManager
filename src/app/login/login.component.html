@@ -34,7 +34,7 @@
                 <div class="row">
                     <div class="col-md-12">
                         <button type="submit" class="btn btn-primary"
-                               [disabled]="loginForm.invalid || loginForm.pristine">
+                               [disabled]="!loginForm.valid || loginForm.pristine">
                             Login
                         </button>
                     </div>

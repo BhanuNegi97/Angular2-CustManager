@@ -75,6 +75,7 @@ module.exports = {
     getCustomer: function (id, callback) {
         console.log('*** accessDB.getCustomer');
         Customer.find({ 'id': id }, {}, function (err, customer) {
+            if (err) return callback(err, null);
             callback(null, customer[0]);
         });
     },

@@ -78,7 +78,12 @@ export class OverlayComponent implements OnInit {
                     }
                 }, this.delay)
             }
-        });     
+        });    
+        
+        this.http.requestErrored.subscribe(() => {
+          this.queue = [];
+          this.enabled = false;
+        }) 
     }
 
 }

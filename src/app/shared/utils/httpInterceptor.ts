@@ -11,6 +11,7 @@ export class HttpInterceptor extends Http {
     
     @Output() requestStarted: EventEmitter<string> = new EventEmitter();
     @Output() requestCompleted: EventEmitter<string> = new EventEmitter();
+    @Output() requestErrored: EventEmitter<string> = new EventEmitter();
     
     constructor(_backend: ConnectionBackend, _defaultOptions: RequestOptions, private _logService: ILogService) {
         super(_backend, _defaultOptions);
@@ -58,6 +59,9 @@ export class HttpInterceptor extends Http {
             .map((res: Response) => {
                 this.requestComplete(url, method);
                 return res;
+            })
+            .catch((error: any) => {
+              this.requestError(error);
             });
     }
     
@@ -76,6 +80,11 @@ export class HttpInterceptor extends Http {
     requestComplete(url: string, method: RequestMethod) {
         this._logService.log(RequestMethod[method] + ' request completed: ' + url);
         this.requestCompleted.emit(url);
+    }
+    
+    requestError(error: any) {
+        this._logService.log('Request error: ' + error.message);
+        this.requestErrored.emit(error);
     }
     
 }

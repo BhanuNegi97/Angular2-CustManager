@@ -13,6 +13,8 @@ export interface ICustomer {
     state: IState;
     zip: number;
     gender: string;
+    latitude: number;
+    longitude: number;
     orderCount?: number;
     orders?: IOrder[];
     ordersTotal?: number;

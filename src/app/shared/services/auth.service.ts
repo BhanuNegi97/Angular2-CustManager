@@ -1,7 +1,8 @@
 import { Injectable, Output, EventEmitter } from 'angular2/core';
-import { Http, Response } from 'angular2/http';
+import { Http, Response, ResponseOptions, Headers } from 'angular2/http';
 //Grab everything with import 'rxjs/Rx';
-import {Observable} from 'rxjs/Observable';
+import { Observable } from 'rxjs/Observable';
+import {Observer} from 'rxjs/Observer';
 import 'rxjs/add/operator/map'; 
 import 'rxjs/add/operator/catch';
 
@@ -15,7 +16,7 @@ export class AuthService {
     serviceBase: string = '/api/dataservice/';
     
     user: IUserSecurity = {
-        isAuthenticated: false,
+        isAuthenticated: true,
         roles: null
     };
     
@@ -48,6 +49,27 @@ export class AuthService {
                 return loggedIn;
             })
             .catch(this.handleError);
+    }
+    
+    validateUser() {
+      //Simulate server call by creating custom Observable<Response>
+      var observableResponse = new Observable((responseObserver: Observer<Response>) => {
+        const body = 'false';
+        const status = 200;
+        const headers: Headers = null;
+        const url: string = null;
+        
+        const responseOptions = new ResponseOptions({body, status, headers, url});
+        const response = new Response(responseOptions);
+        responseObserver.next(response);
+        responseObserver.complete();
+      });
+      
+      //Simulate data coming back from server
+      return observableResponse.map((res: Response) => {
+        const userIsAuthenticated = res.json();
+        return userIsAuthenticated;
+      });
     }
     
     redirectToLogin() {
