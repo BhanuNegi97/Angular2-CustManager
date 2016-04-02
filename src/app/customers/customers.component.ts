@@ -1,12 +1,12 @@
 import { Component, OnInit } from 'angular2/core';
 
-import { FilterTextboxComponent } from '../shared/components/filterTextbox.component';
+import { FilterTextboxComponent } from '../filterTextbox/filterTextbox.component';
 import { IPagedResults } from '../shared/interfaces';
 import { DataService } from '../shared/services/data.service';
 import { DataFilterService } from '../shared/services/dataFilter.service';
 import { CustomersCardComponent } from './customersCard.component';
 import { CustomersGridComponent } from './customersGrid.component';
-import { PaginationComponent } from '../shared/components/pagination.component';
+import { PaginationComponent } from '../pagination/pagination.component';
 import { MapComponent } from '../maps/map.component';
 import { MapPointComponent } from '../maps/mapPoint.component';
 

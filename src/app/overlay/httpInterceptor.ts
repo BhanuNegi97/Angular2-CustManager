@@ -4,7 +4,7 @@ import { Http, ConnectionBackend, RequestOptions, Headers,
 import { Observable } from 'rxjs/Observable';
 import 'rxjs/add/operator/delay';
 
-import { ILogService } from '../interfaces';
+import { ILogService } from '../shared/interfaces';
 
 @Injectable()
 export class HttpInterceptor extends Http {

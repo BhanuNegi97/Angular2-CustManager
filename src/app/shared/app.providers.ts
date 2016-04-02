@@ -7,7 +7,7 @@ import { ROUTER_PROVIDERS, LocationStrategy, HashLocationStrategy } from 'angula
 import { DataService } from './services/data.service';
 import { AuthService } from './services/auth.service';
 import { LogService } from './services/log.service';
-import { HttpInterceptor } from './utils/httpInterceptor';
+import { HttpInterceptor } from '../overlay/httpInterceptor';
 import { CustomLocalization } from './utils/customLocalization';
 import { HttpUtils } from './utils/httpUtils';
 

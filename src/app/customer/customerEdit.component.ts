@@ -5,7 +5,7 @@ import { Router, RouterLink, RouteParams, OnActivate, ComponentInstruction } fro
 import { DataService } from '../shared/services/data.service';
 import { AuthService } from '../shared/services/auth.service';
 import { ICustomer, IState } from '../shared/interfaces';
-import { GrowlerComponent, GrowlMessageType } from '../shared/components/growler.component';
+import { GrowlerComponent, GrowlMessageType } from '../growler/growler.component';
 
 @Component({
   selector: 'customer-edit',
