@@ -1,42 +1,62 @@
 <div class="customers view indent">
-    <div class="container">
-        <header>
-            <h3>
-                <span class="glyphicon glyphicon-user"></span>
-                {{ title }}
-            </h3>
-        </header>
-        <br />
-        <div class="row">
-            <div class="col-md-10">
-                <div class="navbar">
-                    <ul class="nav navbar-nav">
-                        <li class="toolbar-item">
-                            <a (click)="changeDisplayMode('Card')" [class.active]="!gridDisplayModeEnabled">
-                                <span class="glyphicon glyphicon-th-large"></span> Card View
-                            </a>
-                        </li>
-                        <li class="toolbar-item">
-                            <a (click)="changeDisplayMode('Grid')" [class.active]="gridDisplayModeEnabled">
-                                <span class="glyphicon glyphicon-align-justify"></span> Grid View
-                            </a>
-                        </li>
-                    </ul>
-                    <filter-textbox class="navbar-right"
-                     (changed)="filterChanged($event)"></filter-textbox>
-                </div>
-                
-                <customers-card 
-                  [customers]="filteredCustomers" 
-                  [hidden]="gridDisplayModeEnabled"></customers-card>
-            
-                <customers-grid 
-                  [customers]="filteredCustomers" 
-                  [hidden]="!gridDisplayModeEnabled"></customers-grid>
-                  
-                <pagination [totalItems]="totalRecords" [pageSize]="pageSize" (pageChanged)="pageChanged($event)"></pagination>
-   
-            </div>         
+  <div class="container">
+    <header>
+        <h3>
+            <span class="glyphicon glyphicon-user"></span>
+            {{ title }}
+        </h3>
+    </header>
+    <br />
+    <div class="row">
+      <div class="col-md-10">
+        <div class="navbar">
+          <ul class="nav navbar-nav">
+            <li class="toolbar-item">
+                <a (click)="changeDisplayMode(displayModeEnum.Card)" [class.active]="displayMode === displayModeEnum.Card">
+                    <span class="glyphicon glyphicon-th-large"></span> Card View
+                </a>
+            </li>
+            <li class="toolbar-item">
+                <a (click)="changeDisplayMode(displayModeEnum.Grid)" [class.active]="displayMode === displayModeEnum.Grid">
+                    <span class="glyphicon glyphicon-align-justify"></span> Grid View
+                </a>
+            </li>
+            <li class="toolbar-item">
+                <a (click)="changeDisplayMode(displayModeEnum.Map)" [class.active]="displayMode === displayModeEnum.Map">
+                    <span class="glyphicon glyphicon-map-marker"></span> Map View
+                </a>
+            </li>
+          </ul>
+          <filter-textbox class="navbar-right"
+            (changed)="filterChanged($event)"
+            [hidden]="displayMode === displayModeEnum.Map"></filter-textbox>
         </div>
+        
+        <customers-card 
+          [customers]="filteredCustomers" 
+          [hidden]="displayMode !== displayModeEnum.Card"></customers-card>
+    
+        <customers-grid 
+          [customers]="filteredCustomers" 
+          [hidden]="displayMode !== displayModeEnum.Grid"></customers-grid>
+                    
+        <map *ngIf="filteredCustomers.length" 
+            [zoom]="2" 
+            [enabled]="displayMode === displayModeEnum.Map" 
+            [hidden]="displayMode !== displayModeEnum.Map">
+          <map-point 
+            *ngFor="#customer of filteredCustomers" 
+            [latitude]="customer.latitude" 
+            [longitude]="customer.longitude"
+            [markerText]="'<h3>' + customer.firstName + ' ' + customer.lastName + '</a></h3>' + customer.city + ', ' + customer.state.name"></map-point>
+        </map>
+          
+        <pagination [totalItems]="totalRecords" 
+                    [pageSize]="pageSize" 
+                    (pageChanged)="pageChanged($event)"
+                    [hidden]="displayMode === displayModeEnum.Map"></pagination>
+
+        </div>         
     </div>
+  </div>
 </div>

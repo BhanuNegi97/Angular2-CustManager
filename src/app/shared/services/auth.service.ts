@@ -54,7 +54,7 @@ export class AuthService {
     validateUser() {
       //Simulate server call by creating custom Observable<Response>
       var observableResponse = new Observable((responseObserver: Observer<Response>) => {
-        const body = 'false';
+        const body = 'true';
         const status = 200;
         const headers: Headers = null;
         const url: string = null;

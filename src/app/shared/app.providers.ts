@@ -13,10 +13,10 @@ import { HttpUtils } from './utils/httpUtils';
 
 export const APP_PROVIDERS = [
     provide(NgLocalization, { useClass: CustomLocalization}),
-    provide(DataService, { useClass: DataService }),
-    provide(AuthService, { useClass: AuthService }),
-    provide(LogService, { useClass: LogService }),
-    provide(HttpUtils, {useClass: HttpUtils}),
+    DataService,
+    AuthService,
+    LogService,
+    HttpUtils,
     FORM_PROVIDERS,
     ROUTER_PROVIDERS,
     HTTP_PROVIDERS,

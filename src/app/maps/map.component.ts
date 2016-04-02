@@ -1,82 +1,104 @@
-import { Component, OnInit, Input, ElementRef } from 'angular2/core';
+import { Component, OnInit, Input, ContentChildren, ElementRef, QueryList } from 'angular2/core';
+
+import { MapPointComponent } from './mapPoint.component';
 
 @Component({
   selector: 'map',
-  templateUrl: 'app/maps/map.component.html'
+  templateUrl: 'app/maps/map.component.html',
+  directives: [MapPointComponent]
 })
 
 export class MapComponent implements OnInit {
+  
+  private _enabled : boolean;
+  private _loadingScript: boolean;
+  private _map: google.maps.Map;
+  
+  mapHeight: string;
+  mapWidth: string;
 
   @Input() height: number;
   @Input() width: number;
-  @Input() latitude: number;
-  @Input() longitude: number;
-  @Input() zoom: number = 8;
-    
-  mapHeight: string;
-  mapWidth: string;
+  @Input() latitude: number = 34.5133;
+  @Input() longitude: number = -94.1629;
+  @Input() markerText: string = 'Your Location';
+  @Input() zoom: number = 8;  
   
-  private _document: HTMLDocument;
+  //Necessary since a map rendered while container is hidden 
+  //will not load the map tiles properly and show a grey screen
+  @Input() public get enabled() : boolean {
+    return this._enabled;
+  }
+  
+  public set enabled(isEnabled : boolean) {
+    this._enabled = isEnabled;
+    this._init();
+  }  
+  
+  @ContentChildren(MapPointComponent) mapPoints : QueryList<MapPointComponent>;
   
   constructor(private _elem: ElementRef) { }
 
   ngOnInit() {  
-    this._document = this._elem.nativeElement.ownerDocument;
-     
-    if (this.latitude && this.longitude) {
-      if (this.mapHeight && this.mapWidth) {
-        this.mapHeight = this.height + 'px';
-        this.mapWidth = this.width + 'px';  
+       if (this.latitude && this.longitude) {
+        if (this.mapHeight && this.mapWidth) {
+          this.mapHeight = this.height + 'px';
+          this.mapWidth = this.width + 'px';  
+        }
+        else {
+          const hw = this._getWindowHeightWidth(this._elem.nativeElement.ownerDocument);
+          this.mapHeight = hw.height / 2 + 'px';
+          this.mapWidth = hw.width + 'px';
+        }
       }
-      else {
-        const hw = this.getWindowHeightWidth();
-        this.mapHeight = hw.height / 2 + 'px';
-        this.mapWidth = hw.width + 'px';
-      }
-      
+  }
+  
+  _init() {      
       //Need slight delay to avoid grey box when google script has previously been loaded.
       //Otherwise map <div> container may not be visible yet which causes the grey box. 
       setTimeout(() => {
-        this.loadScript();
-      }, 100);
-    }
+        this._ensureScript();
+      }, 200);
   }
   
-  getWindowHeightWidth() {
+  private _getWindowHeightWidth(document: HTMLDocument) {
     let width = window.innerWidth
-    || this._document.documentElement.clientWidth
-    || this._document.body.clientWidth;
+    || document.documentElement.clientWidth
+    || document.body.clientWidth;
 
     let height = window.innerHeight
-    || this._document.documentElement.clientHeight
-    || this._document.body.clientHeight;
+    || document.documentElement.clientHeight
+    || document.body.clientHeight;
     
     if (width > 900) width = 900;
     
     return { height: height, width: width };
   }
   
-  loadScript() {
-    var scriptLoaded = this._document.querySelector('script[id="googlemaps"]');
-    if (!scriptLoaded) {
-      const script = this._document.createElement('script');
+  private _ensureScript() {
+    //if (this._loadingScript) return;
+    this._loadingScript = true;
+    const document = this._elem.nativeElement.ownerDocument;
+    const script = <HTMLScriptElement>document.querySelector('script[id="googlemaps"]');
+    if (script) {
+      if (this._enabled) this._renderMap();
+    } else {
+      const script = document.createElement('script');
       script.id = 'googlemaps';
       script.type = 'text/javascript';
       script.async = true;
       script.defer = true;
       script.src = 'https://maps.googleapis.com/maps/api/js';
       script.onload = () => {
-        this.mapLocation();
+        this._loadingScript = false;
+        if (this._enabled) this._renderMap();
       };      
-      this._document.body.appendChild(script);
-     }
-     else {
-       this.mapLocation();
+      document.body.appendChild(script);
      }
   }
   
-  mapLocation() {
-      const latlng = new google.maps.LatLng(this.latitude, this.longitude);
+  private _renderMap() {
+      const latlng = (this.latitude && this.longitude) ? new google.maps.LatLng(this.latitude, this.longitude) : null;
       const options = {
         zoom: this.zoom,
         center: latlng,
@@ -85,17 +107,34 @@ export class MapComponent implements OnInit {
       };
       
       const mapContainer : HTMLDivElement = this._elem.nativeElement.firstChild;          
-      const map : google.maps.Map = new google.maps.Map(mapContainer, options);      
-      const marker = new google.maps.Marker({
-        position: latlng,
-        map: map,
-        title:"Your location"
+      const map : google.maps.Map = new google.maps.Map(mapContainer, options);
+      
+      if (this.mapPoints && this.mapPoints.length) {
+        this.mapPoints.forEach((point: MapPointComponent) => {
+            const mapPointLatlng = new google.maps.LatLng(point.latitude, point.longitude);
+            this._createMarker(mapPointLatlng, map, point.markerText);
+        });
+      }
+      else {
+        this._createMarker(latlng, map, this.markerText);
+      }     
+  }
+  
+  private _createMarker(position: google.maps.LatLng, map: google.maps.Map, title: string) {
+    
+      var infowindow = new google.maps.InfoWindow({
+        content: title
       });
       
-      //Can be used to monitor when tiles are loaded if needed
-      //map.addListener('tilesloaded', () => {
-        
-      //});
+      const marker = new google.maps.Marker({
+        position: position,
+        map: map,
+        title: title,
+        animation: google.maps.Animation.DROP
+      });
+      
+      marker.addListener('click', () => {
+        infowindow.open(map, marker);
+      });
   }
-
 }

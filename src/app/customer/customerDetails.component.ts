@@ -15,6 +15,7 @@ export class CustomerDetailsComponent implements OnInit {
   
   user: IUserSecurity;
   customer: ICustomer;
+  mapEnabled: boolean;
 
   constructor(private _dataService: DataService, 
               private _authService: AuthService, 
@@ -30,6 +31,7 @@ export class CustomerDetailsComponent implements OnInit {
     this._dataService.getCustomer(id)
         .subscribe((customer: ICustomer) => {
             this.customer = customer;
+            this.mapEnabled = true;
         });  
   }
 

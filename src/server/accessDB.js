@@ -58,7 +58,7 @@ module.exports = {
             var count = custsCount;
             console.log('Customers count: ' + count);
 
-            Customer.find({}, { '_id': 0, 'firstName': 1, 'lastName': 1, 'address':1, 'city': 1, 'state': 1, 'orderCount': 1, 'gender': 1, 'id': 1 })
+            Customer.find({}, { '_id': 0, 'firstName': 1, 'lastName': 1, 'address':1, 'city': 1, 'state': 1, 'orderCount': 1, 'gender': 1, 'id': 1, 'latitude': 1, 'longitude': 1 })
             .skip(skip)
             .limit(top)
             .exec(function (err, customersSummary) {

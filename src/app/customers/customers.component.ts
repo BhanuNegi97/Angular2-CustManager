@@ -7,20 +7,22 @@ import { DataFilterService } from '../shared/services/dataFilter.service';
 import { CustomersCardComponent } from './customersCard.component';
 import { CustomersGridComponent } from './customersGrid.component';
 import { PaginationComponent } from '../shared/components/pagination.component';
-
+import { MapComponent } from '../maps/map.component';
+import { MapPointComponent } from '../maps/mapPoint.component';
 
 @Component({ 
   selector: 'customers', 
   providers: [DataFilterService],
   templateUrl: 'app/customers/customers.component.html',
   directives: [FilterTextboxComponent, CustomersCardComponent, 
-               CustomersGridComponent, PaginationComponent]
+               CustomersGridComponent, PaginationComponent, MapComponent, MapPointComponent]
 })
 export class CustomersComponent implements OnInit {
 
   title: string;
   filterText: string;
-  gridDisplayModeEnabled: boolean;
+  displayMode: DisplayModeEnum;
+  displayModeEnum = DisplayModeEnum;
   customers: any[] = [];
   filteredCustomers: any[] = [];
   
@@ -33,7 +35,7 @@ export class CustomersComponent implements OnInit {
   ngOnInit() {
     this.title = 'Customers';
     this.filterText = 'Filter Customers:';
-    this.gridDisplayModeEnabled = false;
+    this.displayMode = DisplayModeEnum.Card;
     this.getCustomersSummary(1);
   }
   
@@ -44,9 +46,9 @@ export class CustomersComponent implements OnInit {
               this.totalRecords = response.totalRecords;
             });
   }
-
-  changeDisplayMode(mode: string) {
-    this.gridDisplayModeEnabled = (mode === 'Grid');
+  
+  changeDisplayMode(mode: DisplayModeEnum) {
+    this.displayMode = mode;
   }
 
   filterChanged(filterData: string) {
@@ -59,4 +61,10 @@ export class CustomersComponent implements OnInit {
     this.getCustomersSummary(page);
   }
 
+}
+
+enum DisplayModeEnum {
+  Card = 0,
+  Grid = 1,
+  Map = 2
 }
