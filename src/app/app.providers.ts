@@ -4,12 +4,12 @@ import { HTTP_PROVIDERS, Http, XHRBackend, RequestOptions, ConnectionBackend } f
 import { FORM_PROVIDERS } from 'angular2/common';
 import { ROUTER_PROVIDERS, LocationStrategy, HashLocationStrategy } from 'angular2/router';
 
-import { DataService } from './services/data.service';
-import { AuthService } from './services/auth.service';
-import { LogService } from './services/log.service';
-import { HttpInterceptor } from '../overlay/httpInterceptor';
-import { CustomLocalization } from './utils/customLocalization';
-import { HttpUtils } from './utils/httpUtils';
+import { DataService } from './shared/services/data.service';
+import { AuthService } from './shared/services/auth.service';
+import { LogService } from './shared/services/log.service';
+import { HttpInterceptor } from './overlay/httpInterceptor';
+import { CustomLocalization } from './shared/utils/customLocalization';
+import { HttpUtils } from './shared/utils/httpUtils';
 
 export const APP_PROVIDERS = [
     provide(NgLocalization, { useClass: CustomLocalization}),
