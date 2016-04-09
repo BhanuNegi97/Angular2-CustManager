@@ -15,7 +15,7 @@ import { MapPointComponent } from '../maps/mapPoint.component';
   providers: [DataFilterService],
   templateUrl: 'app/customers/customers.component.html',
   directives: [FilterTextboxComponent, CustomersCardComponent, 
-               CustomersGridComponent, PaginationComponent, MapComponent, MapPointComponent]
+               CustomersGridComponent, PaginationComponent, MapComponent, MapPointComponent],
 })
 export class CustomersComponent implements OnInit {
 

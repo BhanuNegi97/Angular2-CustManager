@@ -16,7 +16,7 @@
                     </tr>
                 </thead>
                 <tbody>
-                    <tr *ngFor="#customer of customers">
+                    <tr *ngFor="#customer of customers;trackBy:tracker.customerTrackby">
                         <td>
                             <img src="images/{{ customer.gender | lowercase }}.png" 
                                  class="card-image" alt="Customer Image" />

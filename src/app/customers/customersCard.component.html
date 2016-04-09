@@ -1,9 +1,11 @@
 <div class="container">
     <div class="row card-container">
-        <div class="col-sm-6 col-md-4 col-lg-3" *ngFor="#customer of customers">
+        <div class="col-sm-6 col-md-4 col-lg-3" *ngFor="#customer of customers;trackBy:tracker.customerTrackby">
             <div class="card">
                 <div class="card-header">
-                    <a [routerLink]="['Customer', {id:customer.id}, 'CustomerDetails']" class="white">{{customer.firstName | capitalize }} {{ customer.lastName | capitalize }}</a> 
+                    <a [routerLink]="['Customer', {id:customer.id}, 'CustomerDetails']" class="white">
+                      {{customer.firstName | capitalize }} {{ customer.lastName | capitalize }}
+                    </a> 
                     <i *ngIf="user.isAuthenticated" title="Edit" [routerLink]="['CustomerEdit',{id:customer.id}]" 
                        class="pull-right glyphicon glyphicon-edit edit-icon"></i>
                  </div>

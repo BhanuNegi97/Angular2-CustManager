@@ -16,8 +16,8 @@ import { PaginationComponent } from '../pagination/pagination.component';
 export class OrdersComponent {
 	
 	title: string = 'Orders';
-  customers: any[] = [];
-  filteredCustomers: any[] = [];
+  customers: ICustomer[] = [];
+  filteredCustomers: ICustomer[] = [];
   customerId: number;
   
   totalRecords: number = 0;

@@ -1,11 +1,15 @@
-import { Component, OnInit, Input, ContentChildren, ElementRef, QueryList } from 'angular2/core';
+import { Component, OnInit, Input, ContentChildren, ElementRef, QueryList, ChangeDetectionStrategy } from 'angular2/core';
 
 import { MapPointComponent } from './mapPoint.component';
 
 @Component({
   selector: 'map',
   templateUrl: 'app/maps/map.component.html',
-  directives: [MapPointComponent]
+  directives: [MapPointComponent],
+  //When using OnPush detectors, then the framework will check an OnPush 
+  //component when any of its input properties changes, when it fires 
+  //an event, or when an observable fires an event ~ Victor Savkin (Angular Team)
+  changeDetection: ChangeDetectionStrategy.OnPush
 })
 
 export class MapComponent implements OnInit {

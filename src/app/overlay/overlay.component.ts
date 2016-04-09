@@ -1,4 +1,4 @@
-import { Component, Input, OnInit } from 'angular2/core';
+import { Component, Input, OnInit, ChangeDetectionStrategy, ChangeDetectorRef } from 'angular2/core';
 import { Http } from 'angular2/http';
 import { HttpInterceptor } from './httpInterceptor';
 
@@ -36,29 +36,43 @@ import { HttpInterceptor } from './httpInterceptor';
       opacity: 1;
       position: relative;
     }
-  `]
+  `],
+  //Detach from change detection so that outside changes don't cause
+  //change detector to look here. But, if enabled input property is changed
+  //manually mark the component for change detection
+  changeDetection: ChangeDetectionStrategy.Detached 
 })
 export class OverlayComponent implements OnInit {
   
-    enabled: boolean;
-    http: HttpInterceptor;
-    queue: string[] = [];
+    private _enabled: boolean;
+    private _queue: string[] = [];
+    private _http: HttpInterceptor;
     
     @Input() delay: number = 100;
+    
+    get enabled(): boolean {
+      return this._enabled;
+    }
+    
+    set enabled(val: boolean) {
+      this._enabled = val;
+      //Let change detector know to look for changes so that overlay & message is shown/hidden
+      this._changeRef.markForCheck();
+    }
   
-    constructor(http: Http) {
-       //Cast to HttpInterceptor that's actually provided (see ../main.ts provider code for Http)
-       this.http = <HttpInterceptor>http;
+    constructor(http: Http, private _changeRef: ChangeDetectorRef) {
+       //Cast to HttpInterceptor that's actually provided (see ../app.providers.ts provider code for Http)
+       this._http = <HttpInterceptor>http;
     }
     
     ngOnInit() {
         //Get notified as an XHR request is started
-        this.http.requestStarted.subscribe((url: string) => {
-            this.queue.push(url);
+        this._http.requestStarted.subscribe((url: string) => {
+            this._queue.push(url);
             
-            if (this.queue.length === 1) {
+            if (this._queue.length === 1) {
                 setTimeout(() => {
-                    if (this.queue.length) {
+                    if (this._queue.length) {
                       this.enabled = true;
                     }
                 }, this.delay);
@@ -66,22 +80,22 @@ export class OverlayComponent implements OnInit {
         });
         
         //Get notified as an XHR response is received
-        this.http.requestCompleted.subscribe((url: string) => {
-            this.queue.pop();
+        this._http.requestCompleted.subscribe((url: string) => {
+            this._queue.pop();
             
-            if (this.queue.length === 0) {
+            if (this._queue.length === 0) {
                 setTimeout(() => {
                     //Ensure we're still at 0 since another XHR call could have been triggered
                     //This helps avoid flicker
-                    if (this.queue.length === 0) {
+                    if (this._queue.length === 0) {
                         this.enabled = false;
                     }
                 }, this.delay)
             }
         });    
         
-        this.http.requestErrored.subscribe(() => {
-          this.queue = [];
+        this._http.requestErrored.subscribe(() => {
+          this._queue = [];
           this.enabled = false;
         }) 
     }
