@@ -26,14 +26,13 @@ exports.insertCustomer = function (req, res) {
             console.log('*** getState err');
             res.json({ 'status': false });
         } else {
-            db.insertCustomer(req.body, state, function (err) {
+            db.insertCustomer(req.body, state, function (err, customerId) {
                 if (err) {
                     console.log('*** insertCustomer err');
-                    res.json(false);
+                    res.json(0);
                 } else {
                     console.log('*** insertCustomer err');
-                    console.log('*** addCustomer ok');
-                    res.json(req.body);
+                    res.json(customerId);
                 }
             });
         }

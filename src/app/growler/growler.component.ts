@@ -49,8 +49,11 @@ const GROWLER_STYLES: string = `
       padding: 5;
       width: 285px;
       height: 65px; 
-      opacity: 0;
-              
+      opacity: 0;      
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      
       -webkit-transition: opacity 1s;
       -moz-transition: opacity 1s; 
       -o-transition: opacity 1s;
@@ -60,6 +63,10 @@ const GROWLER_STYLES: string = `
     .growl.active {        
       opacity: 1;
     } 
+    
+    .growl-message {
+
+    }
 `;
 
 @Component({
@@ -68,7 +75,7 @@ const GROWLER_STYLES: string = `
     <div [ngClass]="position" class="growler">
       <div *ngFor="#growl of growls" [ngClass]="{active: growl.enabled}" 
           class="growl alert {{ growl.messageType }}">
-          <span>{{ growl.message }}</span>
+          <span class="growl-message">{{ growl.message }}</span>
       </div>
     </div>
   `,
@@ -76,12 +83,12 @@ const GROWLER_STYLES: string = `
 })
 
 export class GrowlerComponent implements OnInit {
+   
+  private _growlCount: number = 0;  
+  growls: Growl[] = [];
   
   @Input() position: string = 'bottom-right'; 
   @Input() timeout: number = 3000;
-  
-  private _growls: Growl[] = [];
-  private _growlCount: number = 0;
   
   constructor() { }
 
@@ -100,14 +107,14 @@ export class GrowlerComponent implements OnInit {
      const messageType = `alert-${ bootstrapAlertType }`;     
      
      const growl = new Growl(this._growlCount, message, messageType, this.timeout, this);
-     this._growls.push(growl);
+     this.growls.push(growl);
      return growl.id;
   }
   
   removeGrowl(id: number) {
-    this._growls.forEach((growl: Growl, index: number) => {
+    this.growls.forEach((growl: Growl, index: number) => {
       if (growl.id === id) {
-        this._growls.splice(index, 1);
+        this.growls.splice(index, 1);
         this._growlCount--;
         console.log('removed ' + id)
       }

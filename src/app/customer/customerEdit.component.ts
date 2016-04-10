@@ -15,8 +15,7 @@ import { GrowlerComponent, GrowlMessageType } from '../growler/growler.component
 })
 
 export class CustomerEditComponent implements OnInit, OnActivate {
-  
-  
+    
   customer: ICustomer;
   states: IState[];
   title: string;  
@@ -35,10 +34,16 @@ export class CustomerEditComponent implements OnInit, OnActivate {
     
     this.title = (id) ? 'Modify': 'Add';
           
-    this._dataService.getCustomer(id)
-        .subscribe((customer: ICustomer) => {
-            this.customer = customer;
-        });  
+    if (id === 0) {
+      this.buttonText = 'Add';
+      this.addNewCustomer();
+    } else {
+      this.buttonText = 'Update';
+      this._dataService.getCustomer(id)
+          .subscribe((customer: ICustomer) => {
+              this.customer = customer;
+          }); 
+    } 
         
     this._dataService.getStates()
         .subscribe((states: IState[]) => {
@@ -50,13 +55,16 @@ export class CustomerEditComponent implements OnInit, OnActivate {
     if (this.customer.id) {
       this._dataService.updateCustomer(this.customer)
         .subscribe((status: boolean) => {
-          this.processResponse(status, OperationTypeEnum.Insert);
+          this.processResponse(status, OperationTypeEnum.Update);
       });
     }
     else {
       this._dataService.insertCustomer(this.customer)
-        .subscribe((status: boolean) => {
-          this.processResponse(status, OperationTypeEnum.Update);
+        .subscribe((customerId: number) => {
+          if (customerId) { //Insert worked
+           this.customer.id = customerId;
+          }
+          this.processResponse(customerId > 0, OperationTypeEnum.Insert);
       });
     }
   }
@@ -83,7 +91,7 @@ export class CustomerEditComponent implements OnInit, OnActivate {
     }
   }
  
-  newCustomer() {
+  addNewCustomer() {
     this.customer = {
       id: 0,
       firstName: null,

@@ -1,4 +1,5 @@
 import { Component, OnInit } from 'angular2/core';
+import { RouterLink } from 'angular2/router';
 
 import { FilterTextboxComponent } from '../filterTextbox/filterTextbox.component';
 import { IPagedResults } from '../shared/interfaces';
@@ -14,7 +15,7 @@ import { MapPointComponent } from '../maps/mapPoint.component';
   selector: 'customers', 
   providers: [DataFilterService],
   templateUrl: 'app/customers/customers.component.html',
-  directives: [FilterTextboxComponent, CustomersCardComponent, 
+  directives: [RouterLink, FilterTextboxComponent, CustomersCardComponent, 
                CustomersGridComponent, PaginationComponent, MapComponent, MapPointComponent],
 })
 export class CustomersComponent implements OnInit {

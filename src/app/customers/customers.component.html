@@ -26,6 +26,11 @@
                     <span class="glyphicon glyphicon-map-marker"></span> Map View
                 </a>
             </li>
+            <li class="toolbar-item">
+                <a [routerLink]="['CustomerEdit', {id: 0 }]">
+                    <span class="glyphicon glyphicon-plus"></span> Add Customer
+                </a>
+            </li>
           </ul>
           <filter-textbox class="navbar-right"
             (changed)="filterChanged($event)"

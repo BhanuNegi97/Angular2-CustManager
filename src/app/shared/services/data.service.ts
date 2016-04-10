@@ -68,11 +68,11 @@ export class DataService {
         return uri;
     }
     
-    insertCustomer(customer: ICustomer) {
+    insertCustomer(customer: ICustomer) : Observable<number> {
       return this._http.post(this._apiEndpoint + 'postCustomer', 
                              JSON.stringify(customer), this._httpUtils.getJsonRequestOptions())
                  .map((response: Response) => {
-                   return response.json();
+                   return parseInt(response.json(), 10);
                  })
                  .catch(this.handleError);
       
