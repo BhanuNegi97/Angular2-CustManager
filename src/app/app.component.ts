@@ -9,11 +9,13 @@ import { AboutComponent } from './about/about.component';
 import { NavbarComponent } from './navbar/navbar.component';
 import { LoginComponent } from './login/login.component';
 import { OverlayComponent } from './overlay/overlay.component';
+import { APP_PROVIDERS } from './app.providers';
 
 @Component({ 
   selector: 'app-component',
   templateUrl: 'app/app.component.html',
   directives: [ROUTER_DIRECTIVES, NavbarComponent, OverlayComponent],
+  providers:  [APP_PROVIDERS]
 })
 //This will become @Routes soon
 @RouteConfig([
