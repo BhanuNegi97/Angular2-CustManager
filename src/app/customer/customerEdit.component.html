@@ -140,7 +140,7 @@
                                 #state="ngForm"
                                 required>
                           <option [value]="state.id" [selected]="customer.id === 0">Select One:</option>
-                          <option *ngFor="#state of states" [value]="state.id" [selected]="state.id === customer.id">{{state.name}}</option>
+                          <option *ngFor="#state of states" [ngValue]="state.id">{{state.name}}</option>
                         </select>
                         <span class="errorMessage" [hidden]="state.untouched || state.valid">
                             State is required
