@@ -19,12 +19,12 @@ import { APP_PROVIDERS } from './app.providers';
 })
 //This will become @Routes soon
 @RouteConfig([
-  { path: '/customers', as: 'Customers', component: CustomersComponent, useAsDefault: true },
-  { path: '/customers/:id/...', as: 'Customer', component: CustomerComponent },
-  { path: '/customers/:id/edit', as: 'CustomerEdit', component: CustomerEditComponent },
-  { path: '/orders', as: 'Orders', component: OrdersComponent },
-  { path: '/about', as: 'About', component: AboutComponent },
-  { path: '/login', as: 'Login', component: LoginComponent },
+  { path: '/customers', name: 'Customers', component: CustomersComponent, useAsDefault: true },
+  { path: '/customers/:id/...', name: 'Customer', component: CustomerComponent },
+  { path: '/customers/:id/edit',name: 'CustomerEdit', component: CustomerEditComponent },
+  { path: '/orders', name: 'Orders', component: OrdersComponent },
+  { path: '/about', name: 'About', component: AboutComponent },
+  { path: '/login', name: 'Login', component: LoginComponent },
   { path: '/**', redirectTo: ['Customers']}
 ])
 export class AppComponent {
