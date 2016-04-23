@@ -1,4 +1,4 @@
-import { provide, bind, OpaqueToken } from 'angular2/core';
+import { provide, bind } from 'angular2/core';
 import { NgLocalization } from 'angular2/common';
 import { HTTP_PROVIDERS, Http, XHRBackend, RequestOptions, ConnectionBackend } from 'angular2/http';
 import { FORM_PROVIDERS } from 'angular2/common';
@@ -29,5 +29,6 @@ export const APP_PROVIDERS = [
             },
             deps: [XHRBackend, RequestOptions, LogService]
         }),
-    bind(LocationStrategy).toClass(HashLocationStrategy)
+     //Uncomment to use the "old school" hash location strategy: http://localhost:3000/#/customers
+    //bind(LocationStrategy).toClass(HashLocationStrategy)
 ];
