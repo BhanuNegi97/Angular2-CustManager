@@ -29,7 +29,7 @@ export class OrdersComponent {
   }
   
   ngOnInit() {
-      this.customerId = parseInt(this.routeParams.get('id'), 10);
+      this.customerId = +this.routeParams.get('id');
       this.getCustomers(1);
   }
   

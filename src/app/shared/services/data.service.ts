@@ -56,7 +56,7 @@ export class DataService {
                     let custs = response.json();
                     this.extendCustomers(custs);
                     return {
-                        totalRecords: parseInt(response.headers.get('X-InlineCount'), 10),
+                        totalRecords: +response.headers.get('X-InlineCount'),
                         results: custs
                     };
                 })
@@ -72,7 +72,7 @@ export class DataService {
       return this._http.post(this._apiEndpoint + 'postCustomer', 
                              JSON.stringify(customer), this._httpUtils.getJsonRequestOptions())
                  .map((response: Response) => {
-                   return parseInt(response.json(), 10);
+                   return +response.json();
                  })
                  .catch(this.handleError);
       

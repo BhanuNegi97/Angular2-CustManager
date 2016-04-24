@@ -94,8 +94,8 @@ exports.customers = function (req, res) {
     console.log('*** customers');
     var topVal = req.query.$top,
         skipVal = req.query.$skip,
-        top = (isNaN(topVal)) ? 10 : parseInt(req.query.$top, 10),
-        skip = (isNaN(skipVal)) ? 0 : parseInt(req.query.$skip, 10);
+        top = (isNaN(topVal)) ? 10 : +req.query.$top,
+        skip = (isNaN(skipVal)) ? 0 : +req.query.$skip;
 
     db.getCustomers(skip, top, function (err, data) {
         res.setHeader('X-InlineCount', data.count);
@@ -115,8 +115,8 @@ exports.customersSummary = function (req, res) {
     console.log('*** customersSummary');
     var topVal = req.query.$top,
         skipVal = req.query.$skip,
-        top = (isNaN(topVal)) ? 10 : parseInt(req.query.$top, 10),
-        skip = (isNaN(skipVal)) ? 0 : parseInt(req.query.$skip, 10);
+        top = (isNaN(topVal)) ? 10 : +req.query.$top,
+        skip = (isNaN(skipVal)) ? 0 : +req.query.$skip;
 
     db.getCustomersSummary(skip, top, function (err, summary) {
         res.setHeader('X-InlineCount', summary.count);

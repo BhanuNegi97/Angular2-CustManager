@@ -29,8 +29,7 @@ export class CustomerEditComponent implements OnInit, OnActivate {
               private _routeParams: RouteParams) { }
 
   ngOnInit() { 
-    console.log('CustomerEditComponent ngOnInit');
-    const id = parseInt(this._routeParams.get('id'), 10);
+    const id = +this._routeParams.get('id');
     
     this.title = (id) ? 'Modify': 'Add';
           

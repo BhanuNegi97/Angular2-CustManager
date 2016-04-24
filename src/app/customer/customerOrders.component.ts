@@ -26,7 +26,7 @@ export class CustomerOrdersComponent implements OnInit {
   
     //Get route parameter (id) from parent route
     const params = this._injector.parent.parent.get(RouteParams);
-    const id = parseInt(params.get('id'), 10);
+    const id = +params.get('id');
     
     this._dataService.getCustomer(id)
         .subscribe((customer: ICustomer) => {
