@@ -35,7 +35,7 @@ export class OrdersComponent {
   
   getCustomers(page: number) {
       this.dataService.getCustomers(page - 1, this.pageSize)
-          .subscribe((response: IPagedResults) => {
+          .subscribe((response: IPagedResults<ICustomer[]>) => {
             this.customers = this.filteredCustomers = response.results;
             this.totalRecords = response.totalRecords;
         });

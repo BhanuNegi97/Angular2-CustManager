@@ -1,6 +1,19 @@
-export interface IPagedResults {
+export interface IPagedResults<T> {
     totalRecords: number;
-    results: any[];
+    results: T;
+}
+
+export interface ICustomerSummary {
+    firstName: string;
+    lastName: string;
+    email: string;
+    address: string;
+    city: string;
+    state: IState;
+    gender: string;
+    latitude: number;
+    longitude: number;
+    orderCount?: number;
 }
 
 export interface ICustomer {

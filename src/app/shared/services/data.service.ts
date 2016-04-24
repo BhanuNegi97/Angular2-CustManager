@@ -5,7 +5,7 @@ import { Observable } from 'rxjs/Observable';
 import 'rxjs/add/operator/map'; 
 import 'rxjs/add/operator/catch';
 
-import { IPagedResults, ICustomer } from '../interfaces.ts';
+import { IPagedResults, ICustomer, ICustomerSummary } from '../interfaces.ts';
 import { LogService } from './log.service';
 import { HttpUtils } from '../utils/httpUtils';
 
@@ -18,11 +18,11 @@ export class DataService {
 
     }
     
-    getCustomers(pageIndex: number, pageSize: number) : Observable<IPagedResults> {
+    getCustomers(pageIndex: number, pageSize: number) : Observable<IPagedResults<ICustomer[]>> {
         return this.getPagedResource('customers', pageIndex, pageSize);
     }
     
-    getCustomersSummary(pageIndex: number, pageSize: number) {
+    getCustomersSummary(pageIndex: number, pageSize: number) : Observable<IPagedResults<ICustomer[]>> {
         return this.getPagedResource('customersSummary', pageIndex, pageSize);
     }
     
@@ -36,7 +36,7 @@ export class DataService {
                    .catch(this.handleError);
     }
 
-    getOrders(pageIndex: number, pageSize: number) {
+    getOrders(pageIndex: number, pageSize: number) : Observable<IPagedResults<ICustomerSummary[]>>{
         return this.getPagedResource('customersSummary', pageIndex, pageSize);               
     }
     
@@ -48,7 +48,7 @@ export class DataService {
                  .catch(this.handleError);
     }
 
-    getPagedResource(baseResource: string, pageIndex: number, pageSize: number) : Observable<IPagedResults> {
+    getPagedResource(baseResource: string, pageIndex: number, pageSize: number)  {
         let resource = baseResource;
         resource += (arguments.length === 3) ? this.buildPagingUri(pageIndex, pageSize) : '';
         return this._http.get(this._apiEndpoint + resource)

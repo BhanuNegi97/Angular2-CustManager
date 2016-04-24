@@ -2,7 +2,7 @@ import { Component, OnInit } from 'angular2/core';
 import { RouterLink } from 'angular2/router';
 
 import { FilterTextboxComponent } from '../filterTextbox/filterTextbox.component';
-import { IPagedResults } from '../shared/interfaces';
+import { IPagedResults, ICustomerSummary } from '../shared/interfaces';
 import { DataService } from '../shared/services/data.service';
 import { DataFilterService } from '../shared/services/dataFilter.service';
 import { CustomersCardComponent } from './customersCard.component';
@@ -24,8 +24,8 @@ export class CustomersComponent implements OnInit {
   filterText: string;
   displayMode: DisplayModeEnum;
   displayModeEnum = DisplayModeEnum;
-  customers: any[] = [];
-  filteredCustomers: any[] = [];
+  customers: ICustomerSummary[] = [];
+  filteredCustomers: ICustomerSummary[] = [];
   
   totalRecords: number = 0;
   pageSize: number = 10;
@@ -42,7 +42,7 @@ export class CustomersComponent implements OnInit {
   
   getCustomersSummary(page: number) {
         this.dataService.getCustomersSummary(page - 1, this.pageSize)
-            .subscribe((response: IPagedResults) => {
+            .subscribe((response: IPagedResults<ICustomerSummary[]>) => {
               this.customers = this.filteredCustomers = response.results;
               this.totalRecords = response.totalRecords;
             });
