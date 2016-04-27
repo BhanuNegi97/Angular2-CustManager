@@ -7,7 +7,7 @@ import { TrimPipe } from '../shared/pipes/trim.pipe';
 import { Sorter } from '../shared/utils/sorter';
 import { AuthService } from '../shared/services/auth.service';
 import { IUserSecurity } from '../shared/interfaces';
-import { TrackerService } from '../shared/services/tracker.service';
+import { TrackByService } from '../shared/services/trackby.service';
 
 @Component({ 
   selector: 'customers-grid', 
@@ -25,7 +25,7 @@ export class CustomersGridComponent implements OnInit {
   @Input() customers: any[] = [];
   user: IUserSecurity;
 
-  constructor(private authService: AuthService, private sorter: Sorter, private tracker: TrackerService) { }
+  constructor(private authService: AuthService, private sorter: Sorter, private trackby: TrackByService) { }
    
   ngOnInit() {
       this.user = this.authService.user;

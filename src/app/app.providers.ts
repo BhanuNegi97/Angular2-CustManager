@@ -11,14 +11,14 @@ import { LogService } from './shared/services/log.service';
 import { HttpInterceptor } from './overlay/httpInterceptor';
 import { CustomLocalization } from './shared/utils/customLocalization';
 import { HttpUtils } from './shared/utils/httpUtils';
-import { TrackerService } from './shared/services/tracker.service';
+import { TrackByService } from './shared/services/trackby.service';
 
 export const APP_PROVIDERS = [
     provide(NgLocalization, { useClass: CustomLocalization}),
     DataService,
     AuthService,
     LogService,
-    TrackerService,
+    TrackByService,
     HttpUtils,
     FORM_PROVIDERS,
     ROUTER_PROVIDERS,

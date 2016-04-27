@@ -6,7 +6,7 @@ import { TrimPipe } from '../shared/pipes/trim.pipe';
 import { AuthService } from '../shared/services/auth.service';
 import { ICustomer } from '../shared/interfaces';
 import { IUserSecurity } from '../shared/interfaces';
-import { TrackerService } from '../shared/services/tracker.service';
+import { TrackByService } from '../shared/services/trackby.service';
 
 @Component({ 
   selector: 'customers-card', 
@@ -23,7 +23,7 @@ export class CustomersCardComponent implements OnInit {
   @Input() customers: ICustomer[] = [];
   user: IUserSecurity;
   
-  constructor(private authService: AuthService, private tracker: TrackerService) { }
+  constructor(private authService: AuthService, private trackby: TrackByService) { }
   
   ngOnInit() {
       this.user = this.authService.user;
