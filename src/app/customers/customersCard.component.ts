@@ -23,7 +23,7 @@ export class CustomersCardComponent implements OnInit {
   @Input() customers: ICustomer[] = [];
   user: IUserSecurity;
   
-  constructor(private authService: AuthService, private trackby: TrackByService) { }
+  constructor(private authService: AuthService, public trackby: TrackByService) { }
   
   ngOnInit() {
       this.user = this.authService.user;

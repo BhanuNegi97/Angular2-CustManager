@@ -25,7 +25,7 @@ export class CustomersGridComponent implements OnInit {
   @Input() customers: any[] = [];
   user: IUserSecurity;
 
-  constructor(private authService: AuthService, private sorter: Sorter, private trackby: TrackByService) { }
+  constructor(private authService: AuthService, private sorter: Sorter, public trackby: TrackByService) { }
    
   ngOnInit() {
       this.user = this.authService.user;
