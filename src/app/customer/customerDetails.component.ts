@@ -1,5 +1,5 @@
-import { Component, OnInit, Injector } from 'angular2/core';
-import { RouterLink, RouteParams } from 'angular2/router';
+import { Component, OnInit, ReflectiveInjector } from 'angular2/core';
+import { Router, RouterLink, RouteParams, ComponentInstruction } from 'angular2/router';
 
 import { DataService } from '../shared/services/data.service';
 import { AuthService } from '../shared/services/auth.service';
@@ -20,16 +20,17 @@ export class CustomerDetailsComponent implements OnInit {
   mapEnabled: boolean;
 
   constructor(private _dataService: DataService, 
-              private _authService: AuthService, 
-              private _injector: Injector,
+              private _authService: AuthService,
+              private _router: Router,
+              //private _injector: ReflectiveInjector,
               private _logger: LogService) { }
-
+              
   ngOnInit() { 
     this.user = this._authService.user;
     
-    //Get route parameter (id) from parent route
-    const params = this._injector.parent.parent.get(RouteParams);
-    const id = +params.get('id');
+    //Get route parameter (id) from parent router (root)
+    let instruction = this._router.root.currentInstruction;
+    const id = +instruction.component.params['id'];
       
     this._dataService.getCustomer(id)
         .subscribe((customer: ICustomer) => {

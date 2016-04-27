@@ -1,5 +1,6 @@
 import { Component, OnInit } from 'angular2/core';
-import { RouterLink, Router, Location } from 'angular2/router';
+import { RouterLink, Router } from 'angular2/router';
+import { Location } from 'angular2/platform/common';
 import { AuthService } from '../shared/services/auth.service';
 
 @Component({ 

@@ -1,4 +1,4 @@
-import { Component, OnInit, Injector } from 'angular2/core';
+import { Component, OnInit, ReflectiveInjector } from 'angular2/core';
 import { Router, RouterLink, RouteParams } from 'angular2/router';
 
 import { DataService } from '../shared/services/data.service';
@@ -18,15 +18,14 @@ export class CustomerOrdersComponent implements OnInit {
 
   constructor(private _dataService: DataService, 
               private _authService: AuthService,
-              private _router: Router, 
-              private _injector: Injector) { }
+              private _router: Router) { }
 
   ngOnInit() { 
     this.user = this._authService.user;
   
-    //Get route parameter (id) from parent route
-    const params = this._injector.parent.parent.get(RouteParams);
-    const id = +params.get('id');
+    //Get route parameter (id) from parent router (root)
+    let instruction = this._router.root.currentInstruction;
+    const id = +instruction.component.params['id'];
     
     this._dataService.getCustomer(id)
         .subscribe((customer: ICustomer) => {
