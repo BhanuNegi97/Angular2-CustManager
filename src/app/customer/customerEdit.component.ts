@@ -1,6 +1,6 @@
-import { Component, OnInit, ViewChild } from 'angular2/core';
-import { Http, Response } from 'angular2/http';
-import { Router, RouterLink, RouteParams, OnActivate, ComponentInstruction } from 'angular2/router';
+import { Component, OnInit, ViewChild } from '@angular/core';
+import { Http, Response } from '@angular/http';
+import { Router, RouterLink, RouteParams, OnActivate, ComponentInstruction } from '@angular/router';
 
 import { DataService } from '../shared/services/data.service';
 import { AuthService } from '../shared/services/auth.service';

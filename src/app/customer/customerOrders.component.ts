@@ -1,5 +1,5 @@
-import { Component, OnInit, ReflectiveInjector } from 'angular2/core';
-import { Router, RouterLink, RouteParams } from 'angular2/router';
+import { Component, OnInit, ReflectiveInjector } from '@angular/core';
+import { Router, RouterLink, RouteParams } from '@angular/router';
 
 import { DataService } from '../shared/services/data.service';
 import { AuthService } from '../shared/services/auth.service';

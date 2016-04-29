@@ -1,6 +1,6 @@
-import { Injectable, Output, EventEmitter, Inject } from 'angular2/core';
+import { Injectable, Output, EventEmitter, Inject } from '@angular/core';
 import { Http, ConnectionBackend, RequestOptions, Headers,
-         Request, RequestOptionsArgs, Response, RequestMethod } from 'angular2/http';
+         Request, RequestOptionsArgs, Response, RequestMethod } from '@angular/http';
 import { Observable } from 'rxjs/Observable';
 import 'rxjs/add/operator/delay';
 

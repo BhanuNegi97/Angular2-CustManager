@@ -1,9 +1,8 @@
-import { provide, bind } from 'angular2/core';
-import { NgLocalization } from 'angular2/common';
-import { HTTP_PROVIDERS, Http, XHRBackend, RequestOptions, ConnectionBackend } from 'angular2/http';
-import { FORM_PROVIDERS } from 'angular2/common';
-import { ROUTER_PROVIDERS } from 'angular2/router';
-import { LocationStrategy, HashLocationStrategy } from 'angular2/platform/common';
+import { provide, bind } from '@angular/core';
+import { NgLocalization } from '@angular/common';
+import { HTTP_PROVIDERS, Http, XHRBackend, RequestOptions, ConnectionBackend } from '@angular/http';
+import { FORM_PROVIDERS, LocationStrategy, HashLocationStrategy } from '@angular/common';
+import { ROUTER_PROVIDERS } from '@angular/router';
 
 import { DataService } from './shared/services/data.service';
 import { AuthService } from './shared/services/auth.service';

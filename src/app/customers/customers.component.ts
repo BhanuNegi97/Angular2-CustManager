@@ -1,5 +1,5 @@
-import { Component, OnInit } from 'angular2/core';
-import { RouterLink } from 'angular2/router';
+import { Component, OnInit } from '@angular/core';
+import { RouterLink } from '@angular/router';
 
 import { FilterTextboxComponent } from '../filterTextbox/filterTextbox.component';
 import { IPagedResults, ICustomerSummary } from '../shared/interfaces';

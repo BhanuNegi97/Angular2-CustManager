@@ -1,4 +1,4 @@
-import { Component, OnInit, Input, ContentChildren, ElementRef, QueryList, ChangeDetectionStrategy } from 'angular2/core';
+import { Component, OnInit, Input, ContentChildren, ElementRef, QueryList, ChangeDetectionStrategy } from '@angular/core';
 
 import { MapPointComponent } from './mapPoint.component';
 

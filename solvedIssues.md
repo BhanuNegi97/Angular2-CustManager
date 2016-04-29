@@ -9,7 +9,7 @@ Tried this:
 //Simpler way but defaultJSExtensions is deprecated
 // System.config({
 //   paths: {
-//     'angular2/*': '/node_modules/angular2/*.js',
+//     '@angular/*': '/node_modules/angular2/*.js',
 //     'rxjs/*': '/node_modules/rxjs/*.js'
 //   },
 //   defaultJSExtensions: true,

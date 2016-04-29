@@ -1,5 +1,5 @@
-import { Injectable, Inject } from 'angular2/core';
-import { Http, Response, Headers, RequestOptions } from 'angular2/http';
+import { Injectable, Inject } from '@angular/core';
+import { Http, Response, Headers, RequestOptions } from '@angular/http';
 //Grab everything with import 'rxjs/Rx';
 import { Observable } from 'rxjs/Observable';
 import 'rxjs/add/operator/map'; 

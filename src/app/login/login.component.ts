@@ -1,5 +1,5 @@
-import { Component, OnInit, ViewChild } from 'angular2/core';
-import { Router } from 'angular2/router';
+import { Component, OnInit, ViewChild } from '@angular/core';
+import { Router } from '@angular/router';
 
 import { GrowlerComponent, GrowlMessageType } from '../growler/growler.component';
 import { IUserLogin } from '../shared/interfaces';

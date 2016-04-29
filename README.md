@@ -36,7 +36,7 @@ Load data into MongoDB by performing the following steps:
 
 1. Run `npm install` to install app dependencies
 
-1. Run `npm run tsc:w` in a separate terminal window to build the TypeScript code and watch for changes
+1. Run `npm run build:w` in a separate terminal window to build the TypeScript code and watch for changes
 
 1. Run `npm start` in a separate terminal window to build the TypeScript code and watch for changes
 

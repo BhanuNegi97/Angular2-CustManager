@@ -1,5 +1,5 @@
-import { Component, Input, OnInit, ChangeDetectionStrategy, ChangeDetectorRef } from 'angular2/core';
-import { Http } from 'angular2/http';
+import { Component, Input, OnInit, ChangeDetectionStrategy, ChangeDetectorRef } from '@angular/core';
+import { Http } from '@angular/http';
 import { HttpInterceptor } from './httpInterceptor';
 
 @Component({ 

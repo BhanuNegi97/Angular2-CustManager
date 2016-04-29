@@ -1,4 +1,4 @@
-import { NgLocalization } from 'angular2/common';
+import { NgLocalization } from '@angular/common';
 
 export class CustomLocalization extends NgLocalization {
   
