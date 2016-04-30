@@ -10,7 +10,7 @@ import { Component, OnInit, Input, Output, EventEmitter } from '@angular/core';
             <span aria-hidden="true">&laquo;</span>
           </a>
         </li>
-        <li *ngFor="#page of pages" (click)="changePage(page, $event)" [class.active]="currentPage === page">
+        <li *ngFor="let page of pages" (click)="changePage(page, $event)" [class.active]="currentPage === page">
           <a href="#">{{ page }}</a>
         </li>
         <li [class.disabled]="!nextEnabled" (click)="previousNext(1, $event)">

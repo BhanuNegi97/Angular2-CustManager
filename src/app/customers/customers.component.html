@@ -50,7 +50,7 @@
             [enabled]="displayMode === displayModeEnum.Map" 
             [hidden]="displayMode !== displayModeEnum.Map">
           <map-point 
-            *ngFor="#customer of filteredCustomers" 
+            *ngFor="let customer of filteredCustomers" 
             [latitude]="customer.latitude" 
             [longitude]="customer.longitude"
             [markerText]="'<h3>' + customer.firstName + ' ' + customer.lastName + '</a></h3>' + customer.city + ', ' + customer.state.name"></map-point>

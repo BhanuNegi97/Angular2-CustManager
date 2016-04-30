@@ -14,7 +14,7 @@
                 <div class="text-center"><strong>No orders found</strong></div>
             </td>
         </tr>
-        <tr *ngFor="#order of customer.orders" class="repeat-animation">
+        <tr *ngFor="let order of customer.orders" class="repeat-animation">
             <td>
                 {{ order.product }}
             </td>

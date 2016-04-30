@@ -16,7 +16,7 @@
         </div>
         <div class="container">
             <div class="row">
-                <div class="col-md-12 repeat-animation" *ngFor="#customer of filteredCustomers">
+                <div class="col-md-12 repeat-animation" *ngFor="let customer of filteredCustomers">
                     <div>
                         <h4>{{ customer.firstName + ' ' + customer.lastName }}</h4>
                     </div>
