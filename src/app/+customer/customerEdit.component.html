@@ -1,16 +1,12 @@
 <div class="view">
     <div class="container">
-        <header>
-            <h3><span class="glyphicon glyphicon-edit"></span> {{title}} Customer</h3>
-        </header>
-        <br />
         <form *ngIf="customer" #editForm="ngForm" class="validateForm">
             <div class="customerEdit">
                 <div class="row">
                     <div class="col-md-12">
                         <h4>{{ customer.firstName}} {{ customer.lastName }} 
-                          <span [hidden]="customer.id == 0">
-                            (<a style="font-size:12pt" [routerLink]="['Customer',{id:customer.id}]">View Orders</a>)
+                          <span [hidden]="customer.id === 0">
+                            (<a style="font-size:12pt" [routerLink]="['CustomerOrders']">View Orders</a>)
                           </span>
                         </h4>
                         <br />

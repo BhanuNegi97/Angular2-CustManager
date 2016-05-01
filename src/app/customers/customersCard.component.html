@@ -6,7 +6,7 @@
                     <a [routerLink]="['Customer', {id:customer.id}, 'CustomerDetails']" class="white">
                       {{customer.firstName | capitalize }} {{ customer.lastName | capitalize }}
                     </a> 
-                    <i *ngIf="user.isAuthenticated" title="Edit" [routerLink]="['CustomerEdit',{id:customer.id}]" 
+                    <i *ngIf="user.isAuthenticated" title="Edit" [routerLink]="['Customer',{id:customer.id},'CustomerEdit']" 
                        class="pull-right glyphicon glyphicon-edit edit-icon"></i>
                  </div>
                 <div class="card-body">
@@ -18,7 +18,7 @@
                         </div>
                         <div class="pull-left card-body-right">
                             <div class="card-body-content">{{customer.city | trim }}, {{customer.state.name}}</div>
-                            <a [routerLink]="['Customer', {id:customer.id}]" class="card-body-content" title="View Orders">
+                            <a [routerLink]="['Customer', {id:customer.id},'CustomerOrders']" class="card-body-content" title="View Orders">
                               {{ customer.orderCount }} 
                               <span [ngPlural]="customer.orderCount">
                                 <template ngPluralCase="=0">Orders</template>

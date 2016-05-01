@@ -30,7 +30,9 @@ export class CustomerEditComponent implements OnInit, OnActivate {
               private routeParams: RouteParams) { }
 
   ngOnInit() { 
-    const id = +this.routeParams.get('id');
+    //Get route parameter (id) from parent router (root)
+    let instruction = this.router.root.currentInstruction;
+    const id = +instruction.component.params['id'];
     
     this.title = (id) ? 'Modify': 'Add';
           
@@ -73,7 +75,7 @@ export class CustomerEditComponent implements OnInit, OnActivate {
       this.dataService.deleteCustomer(this.customer.id)
         .subscribe((status: boolean) => {
           if (status) {
-            this.router.navigate(['Customers']);
+            this.router.navigate(['/Customers']);
           }
           else {
             this.processResponse(status, OperationTypeEnum.Delete);
@@ -123,7 +125,7 @@ export class CustomerEditComponent implements OnInit, OnActivate {
       this.authService.validateUser()
         .subscribe((status: boolean) => {
             console.log('CustomerEditComponent routerOnActive');
-            if (!status) this.router.navigate(['Customers']);
+            if (!status) this.router.navigate(['/Customers']);
             resolve(status);
           }, (error: Error) => console.log(error)
         );
