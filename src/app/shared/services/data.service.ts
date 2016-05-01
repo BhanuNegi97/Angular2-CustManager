@@ -12,9 +12,9 @@ import { HttpUtils } from '../utils/httpUtils';
 @Injectable()
 export class DataService {
   
-    _apiEndpoint: string = '/api/dataservice/';
+    apiEndpoint: string = '/api/dataservice/';
   
-    constructor(private _http: Http, private _httpUtils: HttpUtils, private _logService: LogService) {
+    constructor(private http: Http, private httpUtils: HttpUtils, private logService: LogService) {
 
     }
     
@@ -27,7 +27,7 @@ export class DataService {
     }
     
     getCustomer(id: number) : Observable<ICustomer> {
-        return this._http.get(this._apiEndpoint + 'customerById/' + id)
+        return this.http.get(this.apiEndpoint + 'customerById/' + id)
                    .map((res: Response) => {
                        let customer = res.json();
                        this.extendCustomers([customer]);
@@ -41,7 +41,7 @@ export class DataService {
     }
     
     getStates() {
-      return this._http.get(this._apiEndpoint + 'states')
+      return this.http.get(this.apiEndpoint + 'states')
                  .map((res: Response) => {
                      return res.json();
                  })
@@ -51,7 +51,7 @@ export class DataService {
     getPagedResource(baseResource: string, pageIndex: number, pageSize: number)  {
         let resource = baseResource;
         resource += (arguments.length === 3) ? this.buildPagingUri(pageIndex, pageSize) : '';
-        return this._http.get(this._apiEndpoint + resource)
+        return this.http.get(this.apiEndpoint + resource)
                 .map((response: Response) => {
                     let custs = response.json();
                     this.extendCustomers(custs);
@@ -69,8 +69,8 @@ export class DataService {
     }
     
     insertCustomer(customer: ICustomer) : Observable<number> {
-      return this._http.post(this._apiEndpoint + 'postCustomer', 
-                             JSON.stringify(customer), this._httpUtils.getJsonRequestOptions())
+      return this.http.post(this.apiEndpoint + 'postCustomer', 
+                             JSON.stringify(customer), this.httpUtils.getJsonRequestOptions())
                  .map((response: Response) => {
                    return +response.json();
                  })
@@ -79,15 +79,15 @@ export class DataService {
     }
     
     updateCustomer(customer: ICustomer) {
-      return this._http.put(this._apiEndpoint + 'putCustomer/' + customer.id, 
-                            JSON.stringify(customer), this._httpUtils.getJsonRequestOptions())
+      return this.http.put(this.apiEndpoint + 'putCustomer/' + customer.id, 
+                            JSON.stringify(customer), this.httpUtils.getJsonRequestOptions())
                  .map((response: Response) => {
                    return response.json();
                  });
     }
     
     deleteCustomer(id: number) {
-      return this._http.delete(this._apiEndpoint + 'deleteCustomer/' + id, this._httpUtils.getJsonRequestOptions())
+      return this.http.delete(this.apiEndpoint + 'deleteCustomer/' + id, this.httpUtils.getJsonRequestOptions())
                  .map((response: Response) => {
                    return response.json();
                  })
@@ -122,7 +122,7 @@ export class DataService {
     };
     
     handleError(error: any) {
-        this._logService.log('Error: ' + error);
+        this.logService.log('Error: ' + error);
         return Observable.throw(error.json().error || 'Server error');
     }
 

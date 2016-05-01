@@ -8,14 +8,15 @@ import { FilterTextboxComponent } from '../filterTextbox/filterTextbox.component
 import { PaginationComponent } from '../pagination/pagination.component';
 
 @Component({ 
+  moduleId: __moduleName,
   selector: 'orders',
-  templateUrl: 'app/orders/orders.component.html',
+  templateUrl: 'orders.component.html',
   directives: [RouterLink, OrdersTableComponent, 
                FilterTextboxComponent, PaginationComponent]
 })
 export class OrdersComponent {
 	
-	title: string = 'Orders';
+  title: string = 'Orders';
   customers: ICustomer[] = [];
   filteredCustomers: ICustomer[] = [];
   customerId: number;

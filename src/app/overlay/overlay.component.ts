@@ -3,6 +3,7 @@ import { Http } from '@angular/http';
 import { HttpInterceptor } from './httpInterceptor';
 
 @Component({ 
+  moduleId: __moduleName,
   selector: 'overlay',
   template: `
     <!-- Using Flexbox for centering loader/indicator box. Won't work in 
@@ -44,35 +45,35 @@ import { HttpInterceptor } from './httpInterceptor';
 })
 export class OverlayComponent implements OnInit {
   
-    private _enabled: boolean;
-    private _queue: string[] = [];
-    private _http: HttpInterceptor;
+    private isEnabled: boolean;
+    private queue: string[] = [];
+    private http: HttpInterceptor;
     
     @Input() delay: number = 100;
     
     get enabled(): boolean {
-      return this._enabled;
+      return this.isEnabled;
     }
     
     set enabled(val: boolean) {
-      this._enabled = val;
+      this.isEnabled = val;
       //Let change detector know to look for changes so that overlay & message is shown/hidden
-      this._changeRef.markForCheck();
+      this.changeRef.markForCheck();
     }
   
-    constructor(http: Http, private _changeRef: ChangeDetectorRef) {
+    constructor(http: Http, private changeRef: ChangeDetectorRef) {
        //Cast to HttpInterceptor that's actually provided (see ../app.providers.ts provider code for Http)
-       this._http = <HttpInterceptor>http;
+       this.http = <HttpInterceptor>http;
     }
     
     ngOnInit() {
         //Get notified as an XHR request is started
-        this._http.requestStarted.subscribe((url: string) => {
-            this._queue.push(url);
+        this.http.requestStarted.subscribe((url: string) => {
+            this.queue.push(url);
             
-            if (this._queue.length === 1) {
+            if (this.queue.length === 1) {
                 setTimeout(() => {
-                    if (this._queue.length) {
+                    if (this.queue.length) {
                       this.enabled = true;
                     }
                 }, this.delay);
@@ -80,22 +81,22 @@ export class OverlayComponent implements OnInit {
         });
         
         //Get notified as an XHR response is received
-        this._http.requestCompleted.subscribe((url: string) => {
-            this._queue.pop();
+        this.http.requestCompleted.subscribe((url: string) => {
+            this.queue.pop();
             
-            if (this._queue.length === 0) {
+            if (this.queue.length === 0) {
                 setTimeout(() => {
                     //Ensure we're still at 0 since another XHR call could have been triggered
                     //This helps avoid flicker
-                    if (this._queue.length === 0) {
+                    if (this.queue.length === 0) {
                         this.enabled = false;
                     }
                 }, this.delay)
             }
         });    
         
-        this._http.requestErrored.subscribe(() => {
-          this._queue = [];
+        this.http.requestErrored.subscribe(() => {
+          this.queue = [];
           this.enabled = false;
         }) 
     }

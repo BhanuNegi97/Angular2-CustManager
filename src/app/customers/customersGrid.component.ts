@@ -10,9 +10,10 @@ import { IUserSecurity } from '../shared/interfaces';
 import { TrackByService } from '../shared/services/trackby.service';
 
 @Component({ 
+  moduleId: __moduleName,
   selector: 'customers-grid', 
   providers: [Sorter],
-  templateUrl: 'app/customers/customersGrid.component.html',
+  templateUrl: 'customersGrid.component.html',
   directives: [RouterLink, SortByDirective],
   pipes: [CapitalizePipe, TrimPipe],
   //When using OnPush detectors, then the framework will check an OnPush 

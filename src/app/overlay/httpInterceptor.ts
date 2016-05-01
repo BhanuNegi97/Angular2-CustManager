@@ -13,8 +13,8 @@ export class HttpInterceptor extends Http {
     @Output() requestCompleted: EventEmitter<string> = new EventEmitter();
     @Output() requestErrored: EventEmitter<string> = new EventEmitter();
     
-    constructor(_backend: ConnectionBackend, _defaultOptions: RequestOptions, private _logService: ILogService) {
-        super(_backend, _defaultOptions);
+    constructor(backend: ConnectionBackend, defaultOptions: RequestOptions, private logService: ILogService) {
+        super(backend, defaultOptions);
     }
     
     get(url: string, options?: RequestOptionsArgs): Observable<Response> {
@@ -73,17 +73,17 @@ export class HttpInterceptor extends Http {
     }
     
     requestStart(url: string, method: RequestMethod) {
-        this._logService.log(RequestMethod[method] + ' request started: ' + url);
+        this.logService.log(RequestMethod[method] + ' request started: ' + url);
         this.requestStarted.emit(url);
     }
     
     requestComplete(url: string, method: RequestMethod) {
-        this._logService.log(RequestMethod[method] + ' request completed: ' + url);
+        this.logService.log(RequestMethod[method] + ' request completed: ' + url);
         this.requestCompleted.emit(url);
     }
     
     requestError(error: any) {
-        this._logService.log('Request error: ' + error.message);
+        this.logService.log('Request error: ' + error.message);
         this.requestErrored.emit(error);
     }
     

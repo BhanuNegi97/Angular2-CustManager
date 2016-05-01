@@ -8,8 +8,9 @@ import { ICustomer, IState } from '../shared/interfaces';
 import { GrowlerComponent, GrowlMessageType } from '../growler/growler.component';
 
 @Component({
+  moduleId: __moduleName,
   selector: 'customer-edit',
-  templateUrl: './app/customer/customerEdit.component.html',
+  templateUrl: 'customerEdit.component.html',
   directives: [RouterLink, GrowlerComponent],
   providers: [GrowlerComponent]
 })
@@ -21,15 +22,15 @@ export class CustomerEditComponent implements OnInit, OnActivate {
   title: string;  
   buttonText: string = 'Update';
   
-  @ViewChild(GrowlerComponent) _growler: GrowlerComponent;
+  @ViewChild(GrowlerComponent) growler: GrowlerComponent;
 
-  constructor(private _dataService: DataService,
-              private _authService: AuthService, 
-              private _router: Router,
-              private _routeParams: RouteParams) { }
+  constructor(private dataService: DataService,
+              private authService: AuthService, 
+              private router: Router,
+              private routeParams: RouteParams) { }
 
   ngOnInit() { 
-    const id = +this._routeParams.get('id');
+    const id = +this.routeParams.get('id');
     
     this.title = (id) ? 'Modify': 'Add';
           
@@ -38,13 +39,13 @@ export class CustomerEditComponent implements OnInit, OnActivate {
       this.addNewCustomer();
     } else {
       this.buttonText = 'Update';
-      this._dataService.getCustomer(id)
+      this.dataService.getCustomer(id)
           .subscribe((customer: ICustomer) => {
               this.customer = customer;
           }); 
     } 
         
-    this._dataService.getStates()
+    this.dataService.getStates()
         .subscribe((states: IState[]) => {
             this.states = states;
         });        
@@ -52,13 +53,13 @@ export class CustomerEditComponent implements OnInit, OnActivate {
   
   saveCustomer() {    
     if (this.customer.id) {
-      this._dataService.updateCustomer(this.customer)
+      this.dataService.updateCustomer(this.customer)
         .subscribe((status: boolean) => {
           this.processResponse(status, OperationTypeEnum.Update);
       });
     }
     else {
-      this._dataService.insertCustomer(this.customer)
+      this.dataService.insertCustomer(this.customer)
         .subscribe((customerId: number) => {
           if (customerId) { //Insert worked
            this.customer.id = customerId;
@@ -69,10 +70,10 @@ export class CustomerEditComponent implements OnInit, OnActivate {
   }
   
   deleteCustomer() {
-      this._dataService.deleteCustomer(this.customer.id)
+      this.dataService.deleteCustomer(this.customer.id)
         .subscribe((status: boolean) => {
           if (status) {
-            this._router.navigate(['Customers']);
+            this.router.navigate(['Customers']);
           }
           else {
             this.processResponse(status, OperationTypeEnum.Delete);
@@ -83,10 +84,10 @@ export class CustomerEditComponent implements OnInit, OnActivate {
   processResponse(status: boolean, operationType: OperationTypeEnum) {
     if (status) {
       this.buttonText = 'Update';
-      this._growler.growl('Operation performed successfully.', GrowlMessageType.Success);
+      this.growler.growl('Operation performed successfully.', GrowlMessageType.Success);
     }
     else {
-      this._growler.growl('Unable to perform operation.', GrowlMessageType.Danger)
+      this.growler.growl('Unable to perform operation.', GrowlMessageType.Danger)
     }
   }
  
@@ -111,18 +112,18 @@ export class CustomerEditComponent implements OnInit, OnActivate {
   //tries to get data - this is only a simple client-side check 
   //(and it'd be easy to change the isAuthenticated property - ALWAYS validate the user on the server!!!!)
   routerOnActivate(next: ComponentInstruction, prev: ComponentInstruction) : Promise<any> {
-    //if (!this._authService.user.isAuthenticated) {
-    //  this._router.navigate(['Customers']);
+    //if (!this.authService.user.isAuthenticated) {
+    //  this.router.navigate(['Customers']);
     //}
     
     //We could use the commented out code to do a check if you don't want the component to load at all in cases
     //where someone hacks the isAuthenticated property. Assuming data is secured properly by the server all they
     //would see is the component screen...but if you don't want that to happen then do a check with the server.
     return new Promise((resolve) => {
-      this._authService.validateUser()
+      this.authService.validateUser()
         .subscribe((status: boolean) => {
             console.log('CustomerEditComponent routerOnActive');
-            if (!status) this._router.navigate(['Customers']);
+            if (!status) this.router.navigate(['Customers']);
             resolve(status);
           }, (error: Error) => console.log(error)
         );

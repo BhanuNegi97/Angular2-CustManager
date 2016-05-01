@@ -4,8 +4,9 @@ import { Location } from '@angular/common';
 import { AuthService } from '../shared/services/auth.service';
 
 @Component({ 
+  moduleId: __moduleName,
   selector: 'navbar',
-  templateUrl: 'app/navbar/navbar.component.html',
+  templateUrl: 'navbar.component.html',
   directives: [RouterLink]
 })
 export class NavbarComponent implements OnInit {
@@ -13,30 +14,30 @@ export class NavbarComponent implements OnInit {
     loginLogoutText: string = 'Login';
     isCollapsed: boolean = false;
 	
-    constructor(private _authService: AuthService, 
-                private _router: Router, 
-                private _location: Location) {}
+    constructor(private authService: AuthService, 
+                private router: Router, 
+                private location: Location) {}
     
     ngOnInit() {
-        this.setLoginLogoutText(this._authService.user.isAuthenticated);
+        this.setLoginLogoutText(this.authService.user.isAuthenticated);
       
         //Subscribe to events
-        this._authService.loginRequired.subscribe(() => {
+        this.authService.loginRequired.subscribe(() => {
             this.redirectToLogin();
         });
         
-        this._authService.authChanged.subscribe((loggedIn: boolean) => {
+        this.authService.authChanged.subscribe((loggedIn: boolean) => {
             this.setLoginLogoutText(loggedIn);
         });
     }
     
     loginOrOut() {
-        const isAuthenticated = this._authService.user.isAuthenticated;
+        const isAuthenticated = this.authService.user.isAuthenticated;
         if (isAuthenticated) { //logout 
             this.setLoginLogoutText(isAuthenticated);
-            this._authService.logout().subscribe((loggedOut: boolean) => {
+            this.authService.logout().subscribe((loggedOut: boolean) => {
                 this.setLoginLogoutText(!loggedOut);
-                this._router.navigate(['Customers']);
+                this.router.navigate(['Customers']);
             });
         }
         else {
@@ -49,10 +50,10 @@ export class NavbarComponent implements OnInit {
     }
     
     redirectToLogin() {
-        this._router.navigate(['Login']);
+        this.router.navigate(['Login']);
     }
     
     highlight(path: string) {
-        return this._location.path() === path;
+        return this.location.path() === path;
     }
 }

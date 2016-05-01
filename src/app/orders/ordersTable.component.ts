@@ -3,9 +3,10 @@ import { Sorter } from '../shared/utils/sorter';
 import { ICustomer } from '../shared/interfaces';
 
 @Component({ 
+  moduleId: __moduleName,
   selector: 'orders-table',
   providers: [ Sorter ],
-  templateUrl: 'app/orders/ordersTable.component.html',
+  templateUrl: 'ordersTable.component.html',
   //When using OnPush detectors, then the framework will check an OnPush 
   //component when any of its input properties changes, when it fires 
   //an event, or when an observable fires an event ~ Victor Savkin (Angular Team)

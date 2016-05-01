@@ -9,8 +9,9 @@ import { IUserSecurity, ICustomer } from '../shared/interfaces';
 import { Subscription } from 'rxjs/Subscription';
 
 @Component({
+  moduleId: __moduleName,
   selector: 'customer-details',
-  templateUrl: 'app/customer/customerDetails.component.html',
+  templateUrl: 'customerDetails.component.html',
   directives: [RouterLink, MapComponent]
 })
 export class CustomerDetailsComponent implements OnInit {
@@ -19,24 +20,24 @@ export class CustomerDetailsComponent implements OnInit {
   customer: ICustomer;
   mapEnabled: boolean;
 
-  constructor(private _dataService: DataService, 
-              private _authService: AuthService,
-              private _router: Router,
-              //private _injector: ReflectiveInjector,
-              private _logger: LogService) { }
+  constructor(private dataService: DataService, 
+              private authService: AuthService,
+              private router: Router,
+              //private injector: ReflectiveInjector,
+              private logger: LogService) { }
               
   ngOnInit() { 
-    this.user = this._authService.user;
+    this.user = this.authService.user;
     
     //Get route parameter (id) from parent router (root)
-    let instruction = this._router.root.currentInstruction;
+    let instruction = this.router.root.currentInstruction;
     const id = +instruction.component.params['id'];
       
-    this._dataService.getCustomer(id).subscribe((customer: ICustomer) => {
+    this.dataService.getCustomer(id).subscribe((customer: ICustomer) => {
             this.customer = customer;
             this.mapEnabled = true;
         }, (err) => {
-          this._logger.log(err);
+          this.logger.log(err);
         });  
   }
 }

@@ -12,8 +12,9 @@ import { OverlayComponent } from './overlay/overlay.component';
 import { APP_PROVIDERS } from './app.providers';
 
 @Component({ 
+  moduleId: __moduleName,
   selector: 'app-component',
-  templateUrl: 'app/app.component.html',
+  templateUrl: 'app.component.html',
   directives: [ROUTER_DIRECTIVES, NavbarComponent, OverlayComponent],
   providers:  [APP_PROVIDERS]
 })

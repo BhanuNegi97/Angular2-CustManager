@@ -70,6 +70,7 @@ const GROWLER_STYLES: string = `
 `;
 
 @Component({
+  moduleId: __moduleName,
   selector: 'growler',
   template: `
     <div [ngClass]="position" class="growler">
@@ -84,7 +85,7 @@ const GROWLER_STYLES: string = `
 
 export class GrowlerComponent implements OnInit {
    
-  private _growlCount: number = 0;  
+  private growlCount: number = 0;  
   growls: Growl[] = [];
   
   @Input() position: string = 'bottom-right'; 
@@ -102,11 +103,11 @@ export class GrowlerComponent implements OnInit {
   * @return {number} id - Returns the ID for the generated growl
   */
   growl(message: string, growlType: GrowlMessageType) : number {  
-     this._growlCount++;
+     this.growlCount++;
      const bootstrapAlertType = GrowlMessageType[growlType].toLowerCase();
      const messageType = `alert-${ bootstrapAlertType }`;     
      
-     const growl = new Growl(this._growlCount, message, messageType, this.timeout, this);
+     const growl = new Growl(this.growlCount, message, messageType, this.timeout, this);
      this.growls.push(growl);
      return growl.id;
   }
@@ -115,7 +116,7 @@ export class GrowlerComponent implements OnInit {
     this.growls.forEach((growl: Growl, index: number) => {
       if (growl.id === id) {
         this.growls.splice(index, 1);
-        this._growlCount--;
+        this.growlCount--;
         console.log('removed ' + id)
       }
     });

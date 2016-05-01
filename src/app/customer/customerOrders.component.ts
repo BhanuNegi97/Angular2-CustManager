@@ -7,8 +7,9 @@ import { OrdersTableComponent } from '../orders/ordersTable.component';
 import { IUserSecurity, ICustomer } from '../shared/interfaces';
 
 @Component({
+  moduleId: __moduleName,
   selector: 'customer-orders',
-  templateUrl: 'app/customer/customerOrders.component.html',
+  templateUrl: 'customerOrders.component.html',
   directives: [RouterLink, OrdersTableComponent]
 })
 export class CustomerOrdersComponent implements OnInit {
@@ -16,18 +17,18 @@ export class CustomerOrdersComponent implements OnInit {
   user: IUserSecurity;
   customer: ICustomer;
 
-  constructor(private _dataService: DataService, 
-              private _authService: AuthService,
-              private _router: Router) { }
+  constructor(private dataService: DataService, 
+              private authService: AuthService,
+              private router: Router) { }
 
   ngOnInit() { 
-    this.user = this._authService.user;
+    this.user = this.authService.user;
   
     //Get route parameter (id) from parent router (root)
-    let instruction = this._router.root.currentInstruction;
+    let instruction = this.router.root.currentInstruction;
     const id = +instruction.component.params['id'];
     
-    this._dataService.getCustomer(id)
+    this.dataService.getCustomer(id)
         .subscribe((customer: ICustomer) => {
             this.customer = customer;
         });  

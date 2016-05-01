@@ -5,8 +5,9 @@ import { CustomerDetailsComponent } from './customerDetails.component';
 import { CustomerOrdersComponent } from './customerOrders.component';
 
 @Component({ 
+  moduleId: __moduleName,
   selector: 'customer', 
-  templateUrl: 'app/customer/customer.component.html',
+  templateUrl: 'customer.component.html',
   directives: [RouterOutlet, RouterLink]
 })
 @RouteConfig([
@@ -17,10 +18,10 @@ export class CustomerComponent implements OnInit {
 
   customerDetailsEnabled: boolean;
 
-  constructor(private _router: Router) { }
+  constructor(private router: Router) { }
   
   ngOnInit() {
-    if (this._router.currentInstruction.component.urlPath === 'details') {
+    if (this.router.currentInstruction.component.urlPath === 'details') {
       this.customerDetailsEnabled = true;
     }
   }

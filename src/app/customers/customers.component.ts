@@ -12,9 +12,10 @@ import { MapComponent } from '../maps/map.component';
 import { MapPointComponent } from '../maps/mapPoint.component';
 
 @Component({ 
+  moduleId: __moduleName,
   selector: 'customers', 
   providers: [DataFilterService],
-  templateUrl: 'app/customers/customers.component.html',
+  templateUrl: 'customers.component.html',
   directives: [RouterLink, FilterTextboxComponent, CustomersCardComponent, 
                CustomersGridComponent, PaginationComponent, MapComponent, MapPointComponent],
 })
