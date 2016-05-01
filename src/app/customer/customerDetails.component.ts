@@ -32,8 +32,7 @@ export class CustomerDetailsComponent implements OnInit {
     let instruction = this._router.root.currentInstruction;
     const id = +instruction.component.params['id'];
       
-    this._dataService.getCustomer(id)
-        .subscribe((customer: ICustomer) => {
+    this._dataService.getCustomer(id).subscribe((customer: ICustomer) => {
             this.customer = customer;
             this.mapEnabled = true;
         }, (err) => {
