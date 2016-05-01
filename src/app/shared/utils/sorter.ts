@@ -24,8 +24,8 @@ export class Sorter extends PropertyResolver {
             }
             
             //Fix issues that spaces before/after string value can cause such as ' San Francisco'
-            if (this.isString(aVal)) aVal = aVal.trim();
-            if (this.isString(bVal)) bVal = bVal.trim();
+            if (this.isString(aVal)) aVal = aVal.trim().toUpperCase();
+            if (this.isString(bVal)) bVal = bVal.trim().toUpperCase();
           
             if(aVal === bVal){
                 return 0;
