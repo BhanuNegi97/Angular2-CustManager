@@ -13,5 +13,8 @@
         </div>
         
         <orders-table *ngIf="customer.orders" [customer]="customer"></orders-table>
-    </div>                
+    </div>      
+    <div *ngIf="!customer">
+        No customer found
+    </div>            
 </div>

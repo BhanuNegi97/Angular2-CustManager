@@ -27,4 +27,7 @@
              [markerText]="'<h3>' + customer.firstName + ' ' + customer.lastName + '</h3>' + customer.city + ', ' + customer.state.name"></map>
     </div>
   </div>       
-</div>               
+</div>      
+<div *ngIf="!customer" class="row">
+   No customer found
+</div>         
