@@ -18,19 +18,8 @@ Simply clone the project or download and extract the .zip to get started.
 
 ## Software Requiremenets
 
-* Node.js 4.0.0 or higher
+* Node.js 5.x or higher
 * MongoDB 3.2 or higher
-
-## Loading MongoDB Data
-
-Load data into MongoDB by performing the following steps:
-
-* Execute 'mongod' to start the MongoDB daemon if it's not already running
-* Open a command window and navigate to the `angular2-customermanager/server` directory 
-* Execute 'mongo' to start the MongoDB shell
-* Enter the following in the mongo shell to load the data seed file:
- * use customermanager
- * load("initMongoData.js")
 
 ## Running the Application
 
