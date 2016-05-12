@@ -11,7 +11,7 @@ var mongoose = require('mongoose'),
 var dbSeeder = function() {
     
     var init = function() {
-        mongoose.connection.db.listCollections({name: 'customer'})
+        mongoose.connection.db.listCollections({name: 'customers'})
             .next(function(err, collinfo) {
                 if (!collinfo) {
                     console.log('Seeding data....');

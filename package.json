@@ -8,7 +8,7 @@
     "build:w": "tsc --watch",
     "bundle": "node bundle.js",
     "bundle:prod": "node bundle.js --prod",
-    "start": "node src/server/server.js",
+    "start": "export NODE_ENV=development && node src/server/server.js",
     "typings": "typings"
   },
   "license": "ISC",
