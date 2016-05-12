@@ -22,7 +22,7 @@
                                  class="card-image" alt="Customer Image" />
                         </td>
                         <td>
-                          <a *ngIf="user.isAuthenticated" [routerLink]="['Customer', {id:customer.id}, 'CustomerDetails']">
+                          <a *ngIf="user.isAuthenticated" [routerLink]="['/customers', customer.id, 'details']">
                             {{ customer.firstName | capitalize }}
                           </a>
                           <span *ngIf="!user.isAuthenticated">{{ customer.firstName | capitalize }}</span>
@@ -32,7 +32,7 @@
                         <td>{{ customer.city | trim }}</td>
                         <td>{{ customer.state.name }}</td>
                         <td>
-                            <a [routerLink]="['Customer',{id:customer.id},'CustomerOrders']">
+                            <a [routerLink]="['/customers', customer.id, 'orders']">
                               {{ customer.orderCount }} 
                               <span [ngPlural]="customer.orderCount">
                                 <template ngPluralCase="=0">Orders</template>
@@ -42,8 +42,9 @@
                             </a>
                         </td>
                         <td>
-                            <i *ngIf="user.isAuthenticated" [routerLink]="['Customer',{id:customer.id},'CustomerEdit']" 
-                                class="pull-right glyphicon glyphicon-edit edit-icon edit-icon-large"></i>
+                            <a *ngIf="user.isAuthenticated" [routerLink]="['/customers', customer.id, 'edit']">
+                                <i  class="pull-right glyphicon glyphicon-edit edit-icon edit-icon-large white"></i>
+                            </a>
                         </td>
                     </tr>
                     <tr *ngIf="!customers.length">

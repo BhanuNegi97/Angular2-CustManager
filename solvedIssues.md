@@ -42,11 +42,10 @@ to debug with the current error that Angular 2 polyfill throws.
 
 Can locate the proper name to use with "typings search maps". Then run "typings install google.maps --ambient --save". 
 
-#### Navigating to parent route from within child route view breaks
+#### Seeder not running
 
-Needed to add a / in front of the parent route to tell it to start from the root route config:
-
-[routerLink]="['/CustomerEdit',{id:customer.id}]"
+Make sure NODE_ENV is set: export NODE_ENV=development
+View it with: echo $NODE_ENV
 
 
 

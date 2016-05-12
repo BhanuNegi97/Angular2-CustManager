@@ -1,6 +1,7 @@
 import { Component, OnInit, ViewChild } from '@angular/core';
 import { Http, Response } from '@angular/http';
-import { Router, RouterLink, RouteParams, OnActivate, ComponentInstruction } from '@angular/router';
+import { Routes, ROUTER_DIRECTIVES, Router,
+         RouteSegment, OnActivate, RouteTree } from '@angular/router';
 
 import { DataService } from '../shared/services/data.service';
 import { AuthService } from '../shared/services/auth.service';
@@ -8,14 +9,14 @@ import { ICustomer, IState } from '../shared/interfaces';
 import { GrowlerComponent, GrowlMessageType } from '../growler/growler.component';
 
 @Component({
-  moduleId: __moduleName,
+  moduleId: module.id,
   selector: 'customer-edit',
   templateUrl: 'customerEdit.component.html',
-  directives: [RouterLink, GrowlerComponent],
+  directives: [ROUTER_DIRECTIVES, GrowlerComponent],
   providers: [GrowlerComponent]
 })
 
-export class CustomerEditComponent implements OnInit, OnActivate {
+export class CustomerEditComponent implements OnActivate {
     
   customer: ICustomer;
   states: IState[];
@@ -25,15 +26,14 @@ export class CustomerEditComponent implements OnInit, OnActivate {
   @ViewChild(GrowlerComponent) growler: GrowlerComponent;
 
   constructor(private dataService: DataService,
-              private authService: AuthService, 
-              private router: Router,
-              private routeParams: RouteParams) { }
+              private authService: AuthService,
+              private router: Router) { }
 
-  ngOnInit() { 
-    //Get route parameter (id) from parent router (root)
-    let instruction = this.router.root.currentInstruction;
-    const id = +instruction.component.params['id'];
-    
+  routerOnActivate(current: RouteSegment, prev?: RouteSegment,
+    currTree?: RouteTree, prevTree?: RouteTree) {
+      
+    const id = +currTree.parent(current).getParam('id');
+    console.log(id);
     this.title = (id) ? 'Modify': 'Add';
           
     if (id === 0) {
@@ -50,7 +50,7 @@ export class CustomerEditComponent implements OnInit, OnActivate {
     this.dataService.getStates()
         .subscribe((states: IState[]) => {
             this.states = states;
-        });        
+        });   
   }
   
   saveCustomer() {    
@@ -75,7 +75,7 @@ export class CustomerEditComponent implements OnInit, OnActivate {
       this.dataService.deleteCustomer(this.customer.id)
         .subscribe((status: boolean) => {
           if (status) {
-            this.router.navigate(['/Customers']);
+            this.router.navigate(['/']);
           }
           else {
             this.processResponse(status, OperationTypeEnum.Delete);
@@ -113,7 +113,7 @@ export class CustomerEditComponent implements OnInit, OnActivate {
   //Keep in mind the server would normally do a "real" auth check on the user when this component
   //tries to get data - this is only a simple client-side check 
   //(and it'd be easy to change the isAuthenticated property - ALWAYS validate the user on the server!!!!)
-  routerOnActivate(next: ComponentInstruction, prev: ComponentInstruction) : Promise<any> {
+  //routerOnActivate(next: ComponentInstruction, prev: ComponentInstruction) : Promise<any> {
     //if (!this.authService.user.isAuthenticated) {
     //  this.router.navigate(['Customers']);
     //}
@@ -121,16 +121,16 @@ export class CustomerEditComponent implements OnInit, OnActivate {
     //We could use the commented out code to do a check if you don't want the component to load at all in cases
     //where someone hacks the isAuthenticated property. Assuming data is secured properly by the server all they
     //would see is the component screen...but if you don't want that to happen then do a check with the server.
-    return new Promise((resolve) => {
-      this.authService.validateUser()
-        .subscribe((status: boolean) => {
-            console.log('CustomerEditComponent routerOnActive');
-            if (!status) this.router.navigate(['/Customers']);
-            resolve(status);
-          }, (error: Error) => console.log(error)
-        );
-    });
-  }
+  //   return new Promise((resolve) => {
+  //     this.authService.validateUser()
+  //       .subscribe((status: boolean) => {
+  //           console.log('CustomerEditComponent routerOnActive');
+  //           if (!status) this.router.navigate(['/Customers']);
+  //           resolve(status);
+  //         }, (error: Error) => console.log(error)
+  //       );
+  //   });
+  // }
 
 }
 

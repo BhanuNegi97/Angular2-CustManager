@@ -1,5 +1,5 @@
 import { Component, OnInit } from '@angular/core';
-import { RouterLink } from '@angular/router';
+import { ROUTER_DIRECTIVES } from '@angular/router';
 
 import { FilterTextboxComponent } from '../filterTextbox/filterTextbox.component';
 import { IPagedResults, ICustomerSummary } from '../shared/interfaces';
@@ -12,11 +12,11 @@ import { MapComponent } from '../maps/map.component';
 import { MapPointComponent } from '../maps/mapPoint.component';
 
 @Component({ 
-  moduleId: __moduleName,
+  moduleId: module.id,
   selector: 'customers', 
   providers: [DataFilterService],
   templateUrl: 'customers.component.html',
-  directives: [RouterLink, FilterTextboxComponent, CustomersCardComponent, 
+  directives: [ROUTER_DIRECTIVES, FilterTextboxComponent, CustomersCardComponent, 
                CustomersGridComponent, PaginationComponent, MapComponent, MapPointComponent],
 })
 export class CustomersComponent implements OnInit {

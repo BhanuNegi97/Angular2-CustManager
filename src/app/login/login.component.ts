@@ -6,7 +6,7 @@ import { IUserLogin } from '../shared/interfaces';
 import { AuthService } from '../shared/services/auth.service';
 
 @Component({ 
-  moduleId: __moduleName,
+  moduleId: module.id,
   selector: 'login',
   templateUrl: 'login.component.html',
   directives: [ GrowlerComponent ]
@@ -36,7 +36,7 @@ export class LoginComponent implements OnInit {
             }
             else {
                 this.authService.changeAuth(loggedIn);
-                this.router.navigate(['Customers']);
+                this.router.navigate(['/']);
             }            
         });
   }

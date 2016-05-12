@@ -3,7 +3,7 @@ import { Http } from '@angular/http';
 import { HttpInterceptor } from './httpInterceptor';
 
 @Component({ 
-  moduleId: __moduleName,
+  moduleId: module.id,
   selector: 'overlay',
   template: `
     <!-- Using Flexbox for centering loader/indicator box. Won't work in 

@@ -1,5 +1,5 @@
-import { Component } from '@angular/core';
-import { RouterLink, RouteParams } from '@angular/router';
+import { Component, OnInit } from '@angular/core';
+import { ROUTER_DIRECTIVES } from '@angular/router';
 
 import { DataService } from '../shared/services/data.service';
 import { IPagedResults, ICustomer, IOrder } from '../shared/interfaces';
@@ -8,13 +8,13 @@ import { FilterTextboxComponent } from '../filterTextbox/filterTextbox.component
 import { PaginationComponent } from '../pagination/pagination.component';
 
 @Component({ 
-  moduleId: __moduleName,
+  moduleId: module.id,
   selector: 'orders',
   templateUrl: 'orders.component.html',
-  directives: [RouterLink, OrdersTableComponent, 
+  directives: [ROUTER_DIRECTIVES, OrdersTableComponent, 
                FilterTextboxComponent, PaginationComponent]
 })
-export class OrdersComponent {
+export class OrdersComponent implements OnInit {
 	
   title: string = 'Orders';
   customers: ICustomer[] = [];
@@ -24,13 +24,12 @@ export class OrdersComponent {
   totalRecords: number = 0;
   pageSize: number = 5;
   
-  constructor(private dataService: DataService, 
-              private routeParams: RouteParams) {
+  constructor(private dataService: DataService) {
     
   }
+ 
   
   ngOnInit() {
-      this.customerId = +this.routeParams.get('id');
       this.getCustomers(1);
   }
   

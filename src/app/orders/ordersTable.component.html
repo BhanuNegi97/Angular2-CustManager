@@ -2,7 +2,6 @@
     <thead>
         <tr>
             <th (click)="sort('product')">Product</th>
-            <th (click)="sort('date')">Date</th>
             <th (click)="sort('quantity')">Quantity</th>
             <th (click)="sort('price')">Unit Price</th>
             <th (click)="sort('orderTotal')">Total</th>
@@ -10,16 +9,13 @@
     </thead>
     <tbody>
         <tr [hidden]="customer.orders || customer.orders.length > 0" class="error">
-            <td colspan="5">
+            <td colspan="4">
                 <div class="text-center"><strong>No orders found</strong></div>
             </td>
         </tr>
         <tr *ngFor="let order of customer.orders" class="repeat-animation">
             <td>
                 {{ order.product }}
-            </td>
-            <td>
-                {{ order.date }}
             </td>
             <td>
                 {{ order.quantity }}
@@ -32,7 +28,7 @@
             </td>
         </tr>
         <tr class="info">
-            <td colspan="4">
+            <td colspan="3">
                 &nbsp;
             </td>
             <td>

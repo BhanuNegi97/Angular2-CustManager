@@ -3,7 +3,7 @@ import { Component, OnInit, Input, ContentChildren, ElementRef, QueryList, Chang
 import { MapPointComponent } from './mapPoint.component';
 
 @Component({
-  moduleId: __moduleName,
+  moduleId: module.id,
   selector: 'map',
   templateUrl: 'map.component.html',
   directives: [MapPointComponent],

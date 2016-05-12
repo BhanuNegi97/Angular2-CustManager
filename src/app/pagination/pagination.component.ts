@@ -1,7 +1,7 @@
 import { Component, OnInit, Input, Output, EventEmitter } from '@angular/core';
 
 @Component({
-  moduleId: __moduleName,
+  moduleId: module.id,
   selector: 'pagination',
   templateUrl: 'pagination.component.html'
 })

@@ -70,7 +70,7 @@ const GROWLER_STYLES: string = `
 `;
 
 @Component({
-  moduleId: __moduleName,
+  moduleId: module.id,
   selector: 'growler',
   template: `
     <div [ngClass]="position" class="growler">

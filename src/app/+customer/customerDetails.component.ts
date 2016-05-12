@@ -1,5 +1,6 @@
 import { Component, OnInit, ReflectiveInjector } from '@angular/core';
-import { Router, RouterLink, RouteParams, ComponentInstruction } from '@angular/router';
+import { Routes, ROUTER_DIRECTIVES, 
+         RouteSegment, OnActivate, RouteTree } from '@angular/router';
 
 import { DataService } from '../shared/services/data.service';
 import { AuthService } from '../shared/services/auth.service';
@@ -9,12 +10,12 @@ import { IUserSecurity, ICustomer } from '../shared/interfaces';
 import { Subscription } from 'rxjs/Subscription';
 
 @Component({
-  moduleId: __moduleName,
+  moduleId: module.id,
   selector: 'customer-details',
   templateUrl: 'customerDetails.component.html',
-  directives: [RouterLink, MapComponent]
+  directives: [ROUTER_DIRECTIVES, MapComponent]
 })
-export class CustomerDetailsComponent implements OnInit {
+export class CustomerDetailsComponent implements OnActivate {
    
   user: IUserSecurity;
   customer: ICustomer;
@@ -22,22 +23,20 @@ export class CustomerDetailsComponent implements OnInit {
 
   constructor(private dataService: DataService, 
               private authService: AuthService,
-              private router: Router,
               //private injector: ReflectiveInjector,
               private logger: LogService) { }
               
-  ngOnInit() { 
-    this.user = this.authService.user;
-    
-    //Get route parameter (id) from parent router (root)
-    let instruction = this.router.root.currentInstruction;
-    const id = +instruction.component.params['id'];
+  routerOnActivate(current: RouteSegment, prev?: RouteSegment,
+    currTree?: RouteTree, prevTree?: RouteTree) {
       
+    this.user = this.authService.user;
+    const id = +currTree.parent(current).getParam('id');
     this.dataService.getCustomer(id).subscribe((customer: ICustomer) => {
             this.customer = customer;
             this.mapEnabled = true;
         }, (err) => {
           this.logger.log(err);
-        });  
+        });   
   }
+  
 }

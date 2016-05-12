@@ -3,8 +3,10 @@
         <div>
             <h4>
                 {{ customer.firstName }} {{ customer.lastName }} &nbsp;
-                <i *ngIf="user.isAuthenticated" [routerLink]="['CustomerEdit']" 
-                    class="glyphicon glyphicon-edit edit-icon edit-icon-large" title="Edit Customer"></i>
+                <a *ngIf="user?.isAuthenticated" [routerLink]="['edit']">
+                    <i  class="glyphicon glyphicon-edit edit-icon edit-icon-large white" 
+                        title="Edit Customer"></i>
+                </a>
             </h4>
             {{customer.address}}
             <br />

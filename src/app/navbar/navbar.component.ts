@@ -1,13 +1,13 @@
 import { Component, OnInit } from '@angular/core';
-import { RouterLink, Router } from '@angular/router';
+import { ROUTER_DIRECTIVES, Router } from '@angular/router';
 import { Location } from '@angular/common';
 import { AuthService } from '../shared/services/auth.service';
 
 @Component({ 
-  moduleId: __moduleName,
+  moduleId: module.id,
   selector: 'navbar',
   templateUrl: 'navbar.component.html',
-  directives: [RouterLink]
+  directives: [ROUTER_DIRECTIVES]
 })
 export class NavbarComponent implements OnInit {
     
@@ -37,7 +37,7 @@ export class NavbarComponent implements OnInit {
             this.setLoginLogoutText(isAuthenticated);
             this.authService.logout().subscribe((loggedOut: boolean) => {
                 this.setLoginLogoutText(!loggedOut);
-                this.router.navigate(['Customers']);
+                this.router.navigate(['/']);
             });
         }
         else {
@@ -50,7 +50,7 @@ export class NavbarComponent implements OnInit {
     }
     
     redirectToLogin() {
-        this.router.navigate(['Login']);
+        this.router.navigate(['/login']);
     }
     
     highlight(path: string) {

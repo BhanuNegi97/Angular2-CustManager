@@ -3,7 +3,7 @@ import { Sorter } from '../shared/utils/sorter';
 import { ICustomer } from '../shared/interfaces';
 
 @Component({ 
-  moduleId: __moduleName,
+  moduleId: module.id,
   selector: 'orders-table',
   providers: [ Sorter ],
   templateUrl: 'ordersTable.component.html',

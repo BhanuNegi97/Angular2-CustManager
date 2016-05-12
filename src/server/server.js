@@ -6,8 +6,8 @@ var express = require('express'),
     csrf = require('csurf'),
     routes = require('./routes'),
     api = require('./routes/api'),
-    DB = require('./accessDB'),
-    protectJSON = require('./lib/protectJSON'),
+    DB = require('./lib/accessDB'),
+    seeder = require('./lib/dbSeeder'),
     app = express();
 
 app.set('views', __dirname + '/views');
@@ -37,9 +37,13 @@ process.on('uncaughtException', function (err) {
     if (err) console.log(err, err.stack);
 });
 
-//Local Connection 
-var conn = 'mongodb://localhost/customermanager';
-var db = DB.startup(conn);
+DB.startup(function() {
+    console.log(process.env.NODE_ENV);
+    if (process.env.NODE_ENV === 'development') {
+        console.log('Starting dbSeeder...');
+        seeder.init();
+    } 
+});
 
 // Routes
 app.get('/', routes.index);
